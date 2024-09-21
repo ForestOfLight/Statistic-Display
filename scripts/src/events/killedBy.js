@@ -12,9 +12,11 @@ eventManager.registerEvent(IDENTIFIER, 'Killed By', () => {
         if (!entityID)
             return;
         eventManager.increment(IDENTIFIER, event.deadEntity);
+        eventManager.incrementTotal(IDENTIFIER);
 
         if (!eventManager.isRegistered(`${IDENTIFIER}_${entityID}`))
             eventManager.registerEvent(`${IDENTIFIER}_${entityID}`, `Killed By ${titleCase(entityID)}`, () => {});
         eventManager.increment(`${IDENTIFIER}_${entityID}`, event.deadEntity);
+        eventManager.incrementTotal(`${IDENTIFIER}_${entityID}`);
     });
 });

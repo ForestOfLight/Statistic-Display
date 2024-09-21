@@ -5,10 +5,13 @@ const IDENTIFIER = 'playTime';
 
 eventManager.registerEvent(IDENTIFIER, 'Minutes Played', () => {
     system.runInterval(() => {
-        for (const player of world.getAllPlayers()) {
+        const players = world.getAllPlayers();
+        for (const player of players) {
             if (!player)
                 continue;
             eventManager.increment(IDENTIFIER, player);
         }
+        if (players.length > 0 && players.every((player) => player !== undefined))
+            eventManager.incrementTotal(IDENTIFIER);
     }, 20 * 60);
 });

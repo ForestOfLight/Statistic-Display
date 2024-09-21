@@ -7,6 +7,7 @@ eventManager.registerEvent(IDENTIFIER, 'Deaths', () => {
     world.afterEvents.entityDie.subscribe((event) => {
         if (event.deadEntity && event.deadEntity.typeId === 'minecraft:player') {
             eventManager.increment(IDENTIFIER, event.deadEntity);
+            eventManager.incrementTotal(IDENTIFIER);
         }
     });
 });

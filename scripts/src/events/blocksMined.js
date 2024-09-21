@@ -11,10 +11,12 @@ eventManager.registerEvent(IDENTIFIER, 'Blocks Mined', () => {
         const blockType = event.block.typeId.replace('minecraft:', '');
         system.run(() => {
             eventManager.increment(IDENTIFIER, event.player);
+            eventManager.incrementTotal(IDENTIFIER);
 
             if (!eventManager.isRegistered(`${IDENTIFIER}_${blockType}`))
                 eventManager.registerEvent(`${IDENTIFIER}_${blockType}`, `${titleCase(blockType)} Mined`, () => {});
             eventManager.increment(`${IDENTIFIER}_${blockType}`, event.player);
+            eventManager.incrementTotal(`${IDENTIFIER}_${blockType}`);
         });
     });
 });

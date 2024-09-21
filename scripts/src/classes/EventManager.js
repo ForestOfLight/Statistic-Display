@@ -17,6 +17,8 @@ class EventManager {
     }
 
     getEvent(eventID) {
+        if (!this.validateEventID(eventID))
+            throw new Error(`[Stats] Could not get event. Event '${eventID}' not found.`);
         return this.events[eventID];
     }
 
@@ -62,6 +64,12 @@ class EventManager {
         this.getEvent(eventID).increment(player);
     }
 
+    incrementTotal(eventID) {
+        if (!this.exists(eventID))
+            throw new Error(`[Stats] Could not increment total. Event '${eventID}' not found.`);
+        this.getEvent(eventID).incrementTotal();
+    }
+
     getCount(eventID, player) {
         if (!this.isRegistered(eventID))
             throw new Error(`[Stats] Could not get count. Event '${eventID}' not found.`);
@@ -69,15 +77,24 @@ class EventManager {
     }
 
     reset(eventID) {
-        world.scoreboard.removeObjective(eventID);
-        world.scoreboard.addObjective(eventID, this.getEvent(eventID).displayName);
+        if (!this.validateEventID(eventID))
+            console.warn(`[Stats] Could not reset. Event '${eventID}' not found.`);
+        this.getEvent(eventID).reset();
+    }
+
+    resetAll() {
+        for (const eventID of this.getEventIDs()) {
+            this.getEvent(eventID).reset();
+        }
     }
 
     validateEventID(eventID) {
         if (this.isRegistered(eventID)) {
             return true;
         } else if (this.exists(eventID)) {
-            const displayName = world.scoreboard.getObjective(eventID).displayName;
+            const displayName = world.scoreboard.getObjective(eventID)?.displayName;
+            if (!displayName)
+                return false;
             this.registerEvent(eventID, displayName, () => {});
             return true;
         } else {

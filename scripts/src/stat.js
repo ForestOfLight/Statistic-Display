@@ -23,7 +23,7 @@ const statCommand = new Command({
         { usage: 'stat list', description: 'List all available statistics.' },
         { usage: 'stat <statistic>', description: 'Display a statistic on the scoreboard.' },
         { usage: 'stat clear', description: 'Hide the scoreboard.' },
-        { usage: 'stat <statistic> reset', description: 'Reset all counts for the specified statistic.' }
+        { usage: 'stat <statistic/all> reset', description: 'Reset all counts for the specified statistic.' }
     ]
 });
 extension.addCommand(statCommand);
@@ -35,12 +35,15 @@ function statCommandCallback(sender, args) {
 
     if (name === 'clear') {
         eventManager.clearDisplay();
-        sender.sendMessage('§7Cleared the statistics display.');
+        sender.sendMessage('§7Hid the statistics display.');
     } else if (name === 'list') {
         sender.sendMessage(`§aAvailable statistic names:${formatStatNames()}`);
+    } else if (reset === 'reset' && name === 'all') {
+        eventManager.resetAll();
+        sender.sendMessage('§7Reset all statistics.');
     } else if (reset === 'reset' && eventManager.exists(name)) {
         eventManager.reset(name);
-        sender.sendMessage(`§7Cleared all statistics for '${name}'.`)
+        sender.sendMessage(`§7Reset all statistics for '${name}'.`)
     } else if (eventManager.exists(name)) {
         const success = eventManager.setDisplay(name);
         if (success)

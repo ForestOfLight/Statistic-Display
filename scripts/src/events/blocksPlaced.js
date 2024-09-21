@@ -9,10 +9,12 @@ eventManager.registerEvent(IDENTIFIER, 'Blocks Placed', () => {
         if (!event.player)
             return;
         eventManager.increment(IDENTIFIER, event.player);
+        eventManager.incrementTotal(IDENTIFIER);
         
         const blockType = event.block.typeId.replace('minecraft:', '');
         if (!eventManager.isRegistered(`${IDENTIFIER}_${blockType}`))
             eventManager.registerEvent(`${IDENTIFIER}_${blockType}`, `${titleCase(blockType)} Placed`, () => {});
         eventManager.increment(`${IDENTIFIER}_${blockType}`, event.player);
+        eventManager.incrementTotal(`${IDENTIFIER}_${blockType}`);
     });
 });
