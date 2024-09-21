@@ -3,7 +3,7 @@
 	"header": {
 		"name": "Statistic Display v1.0.0",
 		"description": "Statistic tracking extension for §l§aCanopy§r by §aForestOfLight§r.",
-		"uuid": "e4e844d5-f45b-4623-82a7-534d44bb4c6f",
+		"uuid": "493affcf-dec3-45c1-bad3-6d203fe72d24",
 		"min_engine_version": [1, 21, 30],
 		"version": [1, 0, 0]
 	},
@@ -11,7 +11,7 @@
 		{
 			"description": "Behavior Pack Module",
 			"type": "data",
-			"uuid": "1ce9eab8-0d4a-4e40-a899-575791a1b40d",
+			"uuid": "23242ff9-4937-40af-ad9b-6b1fb1cee988",
 			"version": [1, 0, 0]
 		},
 		{
@@ -19,7 +19,7 @@
 			"type": "script",
 			"language": "javascript",
 			"entry": "scripts/main.js",
-			"uuid": "839a937e-b4f9-4484-84a4-0db984822f25",
+			"uuid": "3ee2eb62-fd23-4e4a-a6d3-44e841742f6c",
 			"version": [1, 0, 0]
 		}
 	],
