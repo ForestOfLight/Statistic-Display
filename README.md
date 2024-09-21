@@ -1,57 +1,34 @@
-# Canopy Extension Example
-Extensions?! In a behavior pack?! Yep! This repo contains an example pack designed to teach you how to create your own extensions for **Canopy**. All extensions must be added to the same world as **Canopy** (the dependencies in the `manifest.json` should ensure that).
+<!-- ![Understudy Logo](./understudy_logo_banner.png) -->
 
-## How this example pack functions ingame
+[![GitHub Downloads](https://img.shields.io/github/downloads/ForestOfLight/Understudy/total?label=Github%20downloads&logo=github)](https://github.com/ForestOfLight/Statistic-Display/releases/latest)
+[![Discord](https://badgen.net/discord/members/9KGche8fxm?icon=discord&label=Discord&list=what)](https://discord.gg/9KGche8fxm)
+<!-- [![Curseforge Downloads](https://cf.way2muchnoise.eu/full_1093805_downloads.svg)](https://www.curseforge.com/minecraft-bedrock/addons/understudy) -->
 
-What **Canopy** handles:
+# Statistic Display
+This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard.
 
-**`./canopy <rule> [true/false]`**  
-**Canopy** will automatically include the names of your rules in the `./canopy` command.
+> [!IMPORTANT]
+> This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
 
-**`./help`**  
-**Canopy** will automatically include a Rules and a Commands help page for your extension.
+**Canopy** can be downloaded here: https://github.com/ForestOfLight/Canopy
 
-![Help Page](./example_help.png)
+## Usage
+Supported statistics:
+- **Player Deaths**
+- **Blocks Mined** (including each type of block)
+- **Blocks Placed** (including each type of block)
+- **Items Used** (including each type of item)
 
-What the extension handles:
+All commands are prefixed with `./`. The `./stat` command is disabled until enabled with the `commandStat` rule. Do `./help` for more information.
 
-**`./example [message]`**  
-This command sends a message to the chat. It also has a default message if no message is provided. (Alias: `./ex`)
+**Usage: `./stat list`**  
+Displays a list of all available statistics.
 
-**`commandExample`**  
-This rule will enable the `./example` command.
+**Usage: `./stat <statistic>`**
+Displays the specified statistic on the scoreboard.
 
-**`exampleRule`**  
-This rule will enable a message in chat when you push a button.
+**Usage: `./stat clear`**
+Stops displaying the scoreboard.
 
-## How to create an extension
-1. Clone this repo.   
-```
-git clone https://github.com/ForestOfLight/canopy-extension-example.git
-```
-2. Remove all files that are not the `pack_icon.png`, the `manifest.json` file, or in the `scripts/` folder.
-3. Rename the folder to your extension's name.   
-```
-mv canopy-extension-example your-extension-name
-```
-4. Open the folder in your favorite code editor.
-5. Edit the `manifest.json` file to match your extension's information.
-6. Replace the `pack_icon.png` with your extension's icon.
-7. Edit the `main.js` file to add your extension's functionality.
-
-> [!TIP]
-> Most information about how to code a **Canopy Extension** can be found in the `main.js` file.
-
-## How to use an extension
-1. Add the extension pack to the same world as the **Canopy** RP & BP.
-2. Profit.
-
-**Canopy** will automatically detect the extension and load it!
-
-## How does this work?
-
-**Canopy** and its extensions all communicate using scriptevents! The vanilla `/scriptevent` command allows for sending strings to Behavior Packs and the `ScriptEventCommandMessage` event allows for recieving them. **Canopy Extensions** use these to communicate with **Canopy** when new rules and commands are added. **Canopy** uses these as well to get rule data, set rule data, and call command callbacks from extensions.
-
-## Issues & Suggestions
-
-If you have any issues or suggestions, please open an issue on this repo. Additionally, if you're interested in contributing to the project, feel free to open a pull request! 
+**Usage: `./stat <statistic> reset`**
+Resets the counts for the specified statistic.

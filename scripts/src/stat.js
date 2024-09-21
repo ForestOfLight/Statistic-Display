@@ -11,13 +11,19 @@ extension.addRule(commandStatRule);
 const statCommand = new Command({
     name: 'stat',
     description: 'Toggles custom statistics in the world\'s scoreboard.',
-    usage: 'stat <name/clear/list>',
+    usage: 'stat <statistic/clear/list> [reset]',
     callback: statCommandCallback,
     args: [
         { type: 'string', name: 'name' },
         { type: 'string', name: 'reset'}
     ],
     contingentRules: ['commandStat'],
+    helpEntries: [
+        { usage: 'stat <statistic>', description: 'Set the statistics display to the specified name.' },
+        { usage: 'stat clear', description: 'Clear the statistics display.' },
+        { usage: 'stat list', description: 'List all available statistics.' },
+        { usage: 'stat <statistic> reset', description: 'Clear all statistics for the specified name.' }
+    ]
 });
 extension.addCommand(statCommand);
 

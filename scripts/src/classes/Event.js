@@ -1,16 +1,16 @@
 import { world } from "@minecraft/server";
 
 class Event {
-    #eventID;
-    #displayName;
+    eventID;
+    displayName;
     scoreboardObjective;
 
     constructor(eventID, displayName, setupCallback) {
-        this.#eventID = eventID;
-        this.#displayName = displayName;
-        this.scoreboardObjective = world.scoreboard.getObjective(this.#eventID);
+        this.eventID = eventID;
+        this.displayName = displayName;
+        this.scoreboardObjective = world.scoreboard.getObjective(this.eventID);
         if (!this.scoreboardObjective)
-            this.scoreboardObjective = world.scoreboard.addObjective(this.#eventID, this.#displayName);
+            this.scoreboardObjective = world.scoreboard.addObjective(this.eventID, this.displayName);
         setupCallback();
     }
 

@@ -70,6 +70,7 @@ class EventManager {
 
     reset(eventID) {
         world.scoreboard.removeObjective(eventID);
+        world.scoreboard.addObjective(eventID, this.getEvent(eventID).displayName);
     }
 }
 
