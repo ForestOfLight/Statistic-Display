@@ -1,6 +1,7 @@
 import { Rule, Command } from 'lib/canopy/CanopyExtension';
 import { extension } from 'src/config';
 import eventManager from 'src/classes/EventManager';
+import { world } from '@minecraft/server';
 
 const commandStatRule = new Rule({
     identifier: 'commandStat',
@@ -41,8 +42,11 @@ function statCommandCallback(sender, args) {
         eventManager.reset(name);
         sender.sendMessage(`§7Cleared all statistics for '${name}'.`)
     } else if (eventManager.exists(name)) {
-        eventManager.setDisplay(name);
-        sender.sendMessage(`§7Set the statistics display to '${name}'.`);
+        const success = eventManager.setDisplay(name);
+        if (success)
+            sender.sendMessage(`§7Set the statistics display to '${name}'.`);
+        else
+            sender.sendMessage('§cFailed to set the statistics display.');
     } else {
         sender.sendMessage(`§cStatistic '${name}' not found.`);
     }

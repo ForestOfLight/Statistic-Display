@@ -46,13 +46,14 @@ class EventManager {
     }
     
     setDisplay(eventID) {
-        if (!this.isRegistered(eventID))
-            throw new Error(`[Stats] Could not set display. Event '${eventID}' not found.`);
+        if (!this.validateEventID(eventID))
+            return false;
         const scoreboardObjectiveDisplayOptions = { 
             objective: this.getEvent(eventID).scoreboardObjective,
-            sortOrder: ObjectiveSortOrder.Descending 
+            sortOrder: ObjectiveSortOrder.Descending
         };
         world.scoreboard.setObjectiveAtDisplaySlot(DISPLAY_SLOT, scoreboardObjectiveDisplayOptions);
+        return true;
     }
     
     increment(eventID, player) {
@@ -70,6 +71,18 @@ class EventManager {
     reset(eventID) {
         world.scoreboard.removeObjective(eventID);
         world.scoreboard.addObjective(eventID, this.getEvent(eventID).displayName);
+    }
+
+    validateEventID(eventID) {
+        if (this.isRegistered(eventID)) {
+            return true;
+        } else if (this.exists(eventID)) {
+            const displayName = world.scoreboard.getObjective(eventID).displayName;
+            this.registerEvent(eventID, displayName, () => {});
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
