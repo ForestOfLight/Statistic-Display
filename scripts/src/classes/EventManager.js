@@ -14,7 +14,6 @@ class EventManager {
             eventList.push(eventID);
             world.setDynamicProperty('eventList', JSON.stringify(eventList));
         }
-        console.warn(`[Stat] Registered event: ${eventID}`)
     }
 
     getEvent(eventID) {
