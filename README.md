@@ -7,12 +7,6 @@
 # Statistic Display
 This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard.
 
-> [!IMPORTANT]
-> This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
-
-**Canopy** can be downloaded here: https://github.com/ForestOfLight/Canopy
-
-## Usage
 Supported statistics:
 - **Player Deaths**
 - **Blocks Mined** (including each type of block)
@@ -22,6 +16,12 @@ Supported statistics:
 - **Killed By Entity** (including each type of entity)
 - **Interacted with Block or Entity** (including each type of block and entity)
 
+> [!IMPORTANT]
+> This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
+
+**Canopy** can be downloaded here: https://github.com/ForestOfLight/Canopy
+
+## Usage
 All commands are prefixed with `./`. The `./stat` command is disabled until enabled with the `commandStat` rule. Do `./help` for more information.
 
 **Usage: `./stat list`**  
