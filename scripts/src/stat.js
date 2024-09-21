@@ -61,7 +61,7 @@ function formatStatNames() {
     }
     for (const baseEvent of baseEvents) {
         for (const eventID of eventList) {
-            if (eventID.includes(baseEvent) && eventID !== baseEvent) {
+            if (eventID.includes(baseEvent + '_') && eventID !== baseEvent) {
                 subEvents[baseEvent].push(eventID.replace(baseEvent + '_', ''));
             }
         }

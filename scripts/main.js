@@ -10,3 +10,4 @@ import 'src/events/deaths';
 import 'src/events/itemUsed';
 import 'src/events/playTime';
 import 'src/events/killed';
+import 'src/events/killedBy';
