@@ -1,11 +1,11 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Statistic Tracker",
+		"name": "Statistic Tracker v0.1.0",
 		"description": "Statistic tracking extension for §l§aCanopy§r by §aForestOfLight§r.",
 		"uuid": "e4e844d5-f45b-4623-82a7-534d44bb4c6f",
 		"min_engine_version": [1, 21, 30],
-		"version": [1, 0, 0]
+		"version": [0, 1, 0]
 	},
 	"modules": [
 		{
