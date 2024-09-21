@@ -10,11 +10,9 @@ eventManager.registerEvent(IDENTIFIER, 'Entities Killed', () => {
             return;
         const entityID = event.deadEntity.typeId.replace('minecraft:', '');
         eventManager.increment(IDENTIFIER, event.damageSource.damagingEntity);
-        eventManager.incrementTotal(IDENTIFIER);
 
         if (!eventManager.isRegistered(`${IDENTIFIER}_${entityID}`))
             eventManager.registerEvent(`${IDENTIFIER}_${entityID}`, `${titleCase(entityID)} Killed`, () => {});
         eventManager.increment(`${IDENTIFIER}_${entityID}`, event.damageSource.damagingEntity);
-        eventManager.incrementTotal(`${IDENTIFIER}_${entityID}`);
     });
 });

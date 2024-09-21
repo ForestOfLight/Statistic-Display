@@ -11,12 +11,10 @@ eventManager.registerEvent(IDENTIFIER, 'Items Used', () => {
         const itemType = event.itemStack.typeId.replace('minecraft:', '');
         system.run(() => {
             eventManager.increment(IDENTIFIER, event.source);
-            eventManager.incrementTotal(IDENTIFIER);
 
             if (!eventManager.isRegistered(`${IDENTIFIER}_${itemType}`))
                 eventManager.registerEvent(`${IDENTIFIER}_${itemType}`, `${titleCase(itemType)} Used`, () => {});
             eventManager.increment(`${IDENTIFIER}_${itemType}`, event.source);
-            eventManager.incrementTotal(`${IDENTIFIER}_${itemType}`);
         });
     });
 });

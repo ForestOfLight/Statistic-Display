@@ -19,16 +19,23 @@ class Event {
     reset() {
         world.scoreboard.removeObjective(this.eventID);
         this.scoreboardObjective = world.scoreboard.addObjective(this.eventID, this.displayName);
-        this.scoreboardObjective.setScore('Total: ', 0);
+        this.updateTotal();
     }
 
     increment(player) {
-        return this.scoreboardObjective.addScore(player.name + ' ', 1);
+        this.scoreboardObjective.addScore(player.name + ' ', 1);
         // The space is necessary for Minecraft not to attach it to the player object upon relog.
+        this.updateTotal();
     }
 
-    incrementTotal() {
-        return this.scoreboardObjective.addScore('Total: ', 1);
+    updateTotal() {
+        let total = 0;
+        for (const participant of this.scoreboardObjective.getParticipants()) {
+            if (participant.displayName === 'Total: ')
+                continue;
+            total += this.scoreboardObjective.getScore(participant.displayName);
+        }
+        this.scoreboardObjective.setScore('Total: ', total);
     }
 
     getCount(player) {

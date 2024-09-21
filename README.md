@@ -33,5 +33,5 @@ Displays the specified statistic on the scoreboard.
 **Usage: `./stat clear`**  
 Stops displaying the scoreboard.
 
-**Usage: `./stat <statistic> reset`**  
-Resets the counts for the specified statistic.
+**Usage: `./stat <statistic/all> reset`**  
+Resets the counts for the specified statistic, or all statistics.

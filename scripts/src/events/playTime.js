@@ -11,7 +11,5 @@ eventManager.registerEvent(IDENTIFIER, 'Minutes Played', () => {
                 continue;
             eventManager.increment(IDENTIFIER, player);
         }
-        if (players.length > 0 && players.every((player) => player !== undefined))
-            eventManager.incrementTotal(IDENTIFIER);
     }, 20 * 60);
 });

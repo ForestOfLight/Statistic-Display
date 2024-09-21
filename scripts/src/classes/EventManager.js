@@ -64,12 +64,6 @@ class EventManager {
         this.getEvent(eventID).increment(player);
     }
 
-    incrementTotal(eventID) {
-        if (!this.exists(eventID))
-            throw new Error(`[Stats] Could not increment total. Event '${eventID}' not found.`);
-        this.getEvent(eventID).incrementTotal();
-    }
-
     getCount(eventID, player) {
         if (!this.isRegistered(eventID))
             throw new Error(`[Stats] Could not get count. Event '${eventID}' not found.`);
