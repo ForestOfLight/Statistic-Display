@@ -8,3 +8,5 @@ import 'src/events/blocksMined';
 import 'src/events/blocksPlaced';
 import 'src/events/deaths';
 import 'src/events/itemUsed';
+import 'src/events/playTime';
+import 'src/events/killed';
