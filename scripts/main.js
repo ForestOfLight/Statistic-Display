@@ -11,3 +11,4 @@ import 'src/events/itemUsed';
 import 'src/events/playTime';
 import 'src/events/killed';
 import 'src/events/killedBy';
+import 'src/events/interactedWith';

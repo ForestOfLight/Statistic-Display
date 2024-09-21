@@ -5,7 +5,7 @@ import { world } from '@minecraft/server';
 
 const commandStatRule = new Rule({
     identifier: 'commandStat',
-    description: 'Enables/disables the stat command.',
+    description: 'Enables stat command.',
 });
 extension.addRule(commandStatRule);
 
@@ -20,10 +20,10 @@ const statCommand = new Command({
     ],
     contingentRules: ['commandStat'],
     helpEntries: [
-        { usage: 'stat <statistic>', description: 'Set the statistics display to the specified name.' },
-        { usage: 'stat clear', description: 'Clear the statistics display.' },
         { usage: 'stat list', description: 'List all available statistics.' },
-        { usage: 'stat <statistic> reset', description: 'Clear all statistics for the specified name.' }
+        { usage: 'stat <statistic>', description: 'Display a statistic on the scoreboard.' },
+        { usage: 'stat clear', description: 'Hide the scoreboard.' },
+        { usage: 'stat <statistic> reset', description: 'Reset all counts for the specified statistic.' }
     ]
 });
 extension.addCommand(statCommand);

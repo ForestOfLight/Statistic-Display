@@ -20,6 +20,7 @@ Supported statistics:
 - **Items Used** (including each type of item)
 - **Entities Killed** (including each type of entity)
 - **Killed By Entity** (including each type of entity)
+- **Interacted with Block or Entity** (including each type of block and entity)
 
 All commands are prefixed with `./`. The `./stat` command is disabled until enabled with the `commandStat` rule. Do `./help` for more information.
 
