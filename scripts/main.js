@@ -14,6 +14,7 @@ import 'src/events/killed';
 import 'src/events/killedBy';
 import 'src/events/interactedWith';
 import 'src/events/highestXpLevel';
+import 'src/events/toolsBroken';
 
 import Display from 'src/classes/Display';
 import Carousel from 'src/classes/Carousel';

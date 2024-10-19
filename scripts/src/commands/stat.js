@@ -28,9 +28,9 @@ const statCommand = new Command({
         { usage: 'stat hide', description: 'Hides the scoreboard.' },
         { usage: 'stat <statistic> print [player]', description: 'Prints the top 10 or a specific player for the specified statistic.' },
         { usage: 'stat carousel [start/stop]', description: 'Starts or stops the statistic carousel.' },
-        { usage: 'stat carousel interval [seconds]', description: 'Sets the interval for the statistic carousel.' },
-        { usage: 'stat carousel [add/remove] <statistic>', description: 'Adds or removes a statistic from the carousel.' },
+        { usage: 'stat carousel <add/remove> <statistic>', description: 'Adds or removes a statistic from the carousel.' },
         { usage: 'stat carousel list', description: 'Lists all statistics in the carousel.' },
+        { usage: 'stat carousel interval [seconds]', description: 'Sets the interval for the statistic carousel.' },
         { usage: 'stat toggle [total/offline]', description: 'Toggle the display of the total or offline players.' }
     ]
 });

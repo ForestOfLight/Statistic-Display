@@ -9,13 +9,14 @@ This is an addon for Minecraft Bedrock Edition that easily displays statistics o
 
 Supported statistics:
 - **Player Deaths**
+- **Highest Xp Level**
 - **Blocks Mined** (including each type of block)
 - **Blocks Placed** (including each type of block)
+- **Tools Broken** (including each type of tool)
 - **Items Used** (including each type of item)
 - **Entities Killed** (including each type of entity)
 - **Killed By Entity** (including each type of entity)
 - **Interacted with Block or Entity** (including each type of block and entity)
-- **Highest Xp Level**
 
 > [!IMPORTANT]
 > This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
@@ -40,6 +41,18 @@ Hides the scoreboard.
 **Usage: `./stat <statistic> print [player]`**  
 Prints the top 15 players for the specified statistic, or for only the specified player.
 
+**Usage: `./stat carousel <start/stop>`**  
+Starts or stops the carousel of statistics.
+
+**Usage: `./stat carousel <add/remove> <statistic>`**  
+Adds or removes a statistic from the carousel.
+
+**Usage: `./stat carousel list`**  
+Lists all statistics in the carousel.
+
+**Usage: `./stat carousel interval [seconds]`**  
+Sets the interval for the carousel to change statistics.
+
 **Usage: `./stat toggle [total/offline]`**  
 Toggles displaying the total count of the statistic, or displaying offline players.
 
@@ -50,4 +63,4 @@ A utility command used to transfer statistics from v1.0.0 of this addon to v1.1.
 
 ### Special Thanks to CommandLeo
 
-For their Java Edition version of the [Statistic Display](https://github.com/CommandLeo/scarpet/wiki/Statistic-Display) (as an scarpet app), which inspired me to create this addon.
+For their Java Edition version of the [Statistic Display](https://github.com/CommandLeo/scarpet/wiki/Statistic-Display) (as an scarpet app), which inspired me to create this **Canopy** extension addon.
