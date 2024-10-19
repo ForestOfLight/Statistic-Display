@@ -5,7 +5,7 @@
 <!-- [![Curseforge Downloads](https://cf.way2muchnoise.eu/full_1093805_downloads.svg)](https://www.curseforge.com/minecraft-bedrock/addons/understudy) -->
 
 # Statistic Display
-This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard.
+This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard. All statistics are tracked all the time, and can be displayed with a single command. It is designed to be easy to add new statistics to, and only uses one scoreboard objective!
 
 Supported statistics:
 - **Player Deaths**
