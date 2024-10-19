@@ -5,6 +5,7 @@ import BulkDP from 'src/classes/BulkDP';
 class EventManager {
     events = {};
     EVENT_LIST_ID = 'statEventList';
+    SUBEVENT_DELIMITER = ':';
 
     registerEvent(eventID, displayName, setupCallback) {
         this.events[eventID] = new Event(eventID, displayName, setupCallback);

@@ -6,6 +6,4 @@ const extension = new CanopyExtension({
     version: '1.1.0',
 });
 
-const SUBEVENT_DELIMITER = ':';
-
-export { extension, SUBEVENT_DELIMITER };
+export { extension };

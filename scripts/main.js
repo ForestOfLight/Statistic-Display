@@ -16,4 +16,6 @@ import 'src/events/interactedWith';
 import 'src/events/highestXpLevel';
 
 import Display from 'src/classes/Display';
+import Carousel from 'src/classes/Carousel';
 Display.onReload();
+Carousel.onReload();

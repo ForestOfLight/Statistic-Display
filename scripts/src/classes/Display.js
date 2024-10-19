@@ -115,7 +115,7 @@ class Display {
 
     static printPlayer(sender, eventID, playerName) {
         const event = eventManager.getEvent(eventID);
-        const count = event.getCount({ name: playerName });
+        const count = event.getCount({ name: String(playerName) });
         if (count === 0)
             return sender.sendMessage('§7No statistics found for ' + playerName + ' in ' + event.displayName + '.');
         sender.sendMessage('§7' + event.displayName + ' for ' + playerName + ': §c' + count);
