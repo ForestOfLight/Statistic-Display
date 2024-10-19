@@ -3,7 +3,9 @@ import { CanopyExtension } from 'lib/canopy/CanopyExtension';
 const extension = new CanopyExtension({
     name: 'StatisticDisplay',
     description: 'Statistic tracking for §l§aCanopy§r.',
-    version: '1.0.0',
+    version: '1.1.0',
 });
 
-export { extension };
+const SUBEVENT_DELIMITER = ':';
+
+export { extension, SUBEVENT_DELIMITER };

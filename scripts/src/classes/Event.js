@@ -1,46 +1,90 @@
 import { world } from "@minecraft/server";
+import Display from "src/classes/Display";
+
+const EVENT_ID_PREFIX = 'stat-';
 
 class Event {
     eventID;
     displayName;
-    scoreboardObjective;
+    #dpIdentifier;
 
     constructor(eventID, displayName, setupCallback) {
         this.eventID = eventID;
         this.displayName = displayName;
-        this.scoreboardObjective = world.scoreboard.getObjective(this.eventID);
-        if (!this.scoreboardObjective) {
-            this.scoreboardObjective = world.scoreboard.addObjective(this.eventID, this.displayName);
-            this.scoreboardObjective.setScore('Total: ', 0);
+        this.#dpIdentifier = EVENT_ID_PREFIX + eventID;
+        
+        if (!world.getDynamicPropertyIds().includes(this.#dpIdentifier)) {
+            this.#initializeDynamicProperty();
         }
         setupCallback();
     }
 
+    #initializeDynamicProperty() {
+        world.setDynamicProperty(this.#dpIdentifier, JSON.stringify({
+            displayName: this.displayName,
+            participants: []
+        }));
+    }
+
+    getData() {
+        return JSON.parse(world.getDynamicProperty(this.#dpIdentifier));
+    }
+
+    hasParticipant(player) {
+        const data = this.getData();
+        const participantNames = data.participants.map(participant => participant.name)
+        return participantNames.includes(player.name);
+    }
+
     reset() {
-        world.scoreboard.removeObjective(this.eventID);
-        this.scoreboardObjective = world.scoreboard.addObjective(this.eventID, this.displayName);
-        this.updateTotal();
+        this.#initializeDynamicProperty();
+        Display.update(this);
     }
 
     increment(player) {
-        this.scoreboardObjective.addScore(player.name + ' ', 1);
-        // The space is necessary for Minecraft not to attach it to the player object upon relog.
-        this.updateTotal();
+        const data = this.getData();
+        if (!this.hasParticipant(player)) {
+            data.participants.push({
+                name: player.name,
+                score: 0
+            });
+        }
+        const participant = data.participants.find(participant => participant.name === player.name);
+        participant.score++;
+        world.setDynamicProperty(this.#dpIdentifier, JSON.stringify(data));
+        Display.update(this);
     }
 
-    updateTotal() {
+    getTotal() {
+        const data = this.getData();
         let total = 0;
-        for (const participant of this.scoreboardObjective.getParticipants()) {
-            if (participant.displayName === 'Total: ')
-                continue;
-            total += this.scoreboardObjective.getScore(participant.displayName);
+        for (const participant of data.participants) {
+            total += participant.score;
         }
-        this.scoreboardObjective.setScore('Total: ', total);
+        return total;
     }
 
     getCount(player) {
-        return this.scoreboardObjective.getScore(player.name);
+        const data = this.getData();
+        const participant = data.participants.find(participant => participant.name === player.name);
+        if (participant === undefined)
+            return 0;
+        return participant.score;
+    }
+
+    setCount(player, count) {
+        const data = this.getData();
+        if (!this.hasParticipant(player)) {
+            data.participants.push({
+                name: player.name,
+                score: 0
+            });
+        }
+        const participant = data.participants.find(participant => participant.name === player.name);
+        participant.score = count;
+        world.setDynamicProperty(this.#dpIdentifier, JSON.stringify(data));
+        Display.update(this);
     }
 }
 
-export default Event;
+export { Event, EVENT_ID_PREFIX };

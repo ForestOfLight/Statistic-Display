@@ -1,10 +1,10 @@
-import { world, ObjectiveSortOrder, DisplaySlotId } from '@minecraft/server';
-import Event from 'src/classes/Event';
-
-const DISPLAY_SLOT = DisplaySlotId.Sidebar;
+import { world } from '@minecraft/server';
+import { Event, EVENT_ID_PREFIX } from 'src/classes/Event';
+import BulkDP from 'src/classes/BulkDP';
 
 class EventManager {
     events = {};
+    EVENT_LIST_ID = 'statEventList';
 
     registerEvent(eventID, displayName, setupCallback) {
         this.events[eventID] = new Event(eventID, displayName, setupCallback);
@@ -12,24 +12,18 @@ class EventManager {
         const eventList = this.getEventIDs();
         if (!eventList.includes(eventID)) {
             eventList.push(eventID);
-            world.setDynamicProperty('eventList', JSON.stringify(eventList));
+            BulkDP.save(this.EVENT_LIST_ID, eventList);
         }
+    }
+    
+    getEventIDs() {
+        return BulkDP.load(this.EVENT_LIST_ID);
     }
 
     getEvent(eventID) {
         if (!this.validateEventID(eventID))
             throw new Error(`[Stats] Could not get event. Event '${eventID}' not found.`);
         return this.events[eventID];
-    }
-
-    getEventIDs() {
-        let eventList;
-        try {
-            eventList = JSON.parse(world.getDynamicProperty('eventList'));
-        } catch {}
-        if (eventList === undefined)
-            eventList = [];
-        return eventList;
     }
 
     exists(eventID) {
@@ -40,28 +34,16 @@ class EventManager {
         return this.events[eventID] !== undefined;
     }
     
-    clearDisplay() {
-        const success = world.scoreboard.clearObjectiveAtDisplaySlot(DISPLAY_SLOT);
-        if (!success)
-            return false;
-        return true;
-    }
-    
-    setDisplay(eventID) {
-        if (!this.validateEventID(eventID))
-            return false;
-        const scoreboardObjectiveDisplayOptions = { 
-            objective: this.getEvent(eventID).scoreboardObjective,
-            sortOrder: ObjectiveSortOrder.Descending
-        };
-        world.scoreboard.setObjectiveAtDisplaySlot(DISPLAY_SLOT, scoreboardObjectiveDisplayOptions);
-        return true;
-    }
-    
     increment(eventID, player) {
         if (!this.exists(eventID))
             throw new Error(`[Stats] Could not increment. Event '${eventID}' not found.`);
         this.getEvent(eventID).increment(player);
+    }
+
+    setCount(eventID, player, count) {
+        if (!this.validateEventID(eventID))
+            throw new Error(`[Stats] Could not set count. Event '${eventID}' not found.`);
+        this.getEvent(eventID).setCount(player, count);
     }
 
     getCount(eventID, player) {
@@ -86,7 +68,7 @@ class EventManager {
         if (this.isRegistered(eventID)) {
             return true;
         } else if (this.exists(eventID)) {
-            const displayName = world.scoreboard.getObjective(eventID)?.displayName;
+            const displayName = JSON.parse(world.getDynamicProperty(EVENT_ID_PREFIX + eventID)).displayName;
             if (!displayName)
                 return false;
             this.registerEvent(eventID, displayName, () => {});
@@ -94,6 +76,19 @@ class EventManager {
         } else {
             return false;
         }
+    }
+
+    findEventByDisplayName(displayName) {
+        for (const eventID of this.getEventIDs()) {
+            try {
+                const event = this.getEvent(eventID);
+                if (event.displayName === displayName)
+                    return event;
+            } catch (error) {
+                console.warn(error);
+            }
+        }
+        return undefined;
     }
 }
 

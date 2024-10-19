@@ -1,6 +1,7 @@
 import { system, world } from "@minecraft/server";
 import eventManager from "src/classes/EventManager";
 import { titleCase } from "src/utils";
+import { SUBEVENT_DELIMITER } from "src/config";
 
 const IDENTIFIER = 'itemsUsed';
 
@@ -12,9 +13,9 @@ eventManager.registerEvent(IDENTIFIER, 'Items Used', () => {
         system.run(() => {
             eventManager.increment(IDENTIFIER, event.source);
 
-            if (!eventManager.isRegistered(`${IDENTIFIER}_${itemType}`))
-                eventManager.registerEvent(`${IDENTIFIER}_${itemType}`, `${titleCase(itemType)} Used`, () => {});
-            eventManager.increment(`${IDENTIFIER}_${itemType}`, event.source);
+            if (!eventManager.isRegistered(`${IDENTIFIER}${SUBEVENT_DELIMITER}${itemType}`))
+                eventManager.registerEvent(`${IDENTIFIER}${SUBEVENT_DELIMITER}${itemType}`, `${titleCase(itemType)} Used`, () => {});
+            eventManager.increment(`${IDENTIFIER}${SUBEVENT_DELIMITER}${itemType}`, event.source);
         });
     });
 });

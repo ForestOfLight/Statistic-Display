@@ -1,7 +1,8 @@
 import 'src/config';
 
 // Commands
-import 'src/stat';
+import 'src/commands/stat';
+import 'src/commands/transferstats';
 
 // Events
 import 'src/events/blocksMined';
@@ -12,3 +13,7 @@ import 'src/events/playTime';
 import 'src/events/killed';
 import 'src/events/killedBy';
 import 'src/events/interactedWith';
+import 'src/events/highestXpLevel';
+
+import Display from 'src/classes/Display';
+Display.onReload();

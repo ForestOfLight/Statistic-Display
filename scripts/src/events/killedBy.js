@@ -1,6 +1,7 @@
 import { world } from "@minecraft/server";
 import eventManager from "src/classes/EventManager";
 import { titleCase } from "src/utils";
+import { SUBEVENT_DELIMITER } from "src/config";
 
 const IDENTIFIER = 'killedBy';
 
@@ -13,8 +14,8 @@ eventManager.registerEvent(IDENTIFIER, 'Killed By', () => {
             return;
         eventManager.increment(IDENTIFIER, event.deadEntity);
 
-        if (!eventManager.isRegistered(`${IDENTIFIER}_${entityID}`))
-            eventManager.registerEvent(`${IDENTIFIER}_${entityID}`, `Killed By ${titleCase(entityID)}`, () => {});
-        eventManager.increment(`${IDENTIFIER}_${entityID}`, event.deadEntity);
+        if (!eventManager.isRegistered(`${IDENTIFIER}${SUBEVENT_DELIMITER}${entityID}`))
+            eventManager.registerEvent(`${IDENTIFIER}${SUBEVENT_DELIMITER}${entityID}`, `Killed By ${titleCase(entityID)}`, () => {});
+        eventManager.increment(`${IDENTIFIER}${SUBEVENT_DELIMITER}${entityID}`, event.deadEntity);
     });
 });

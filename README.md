@@ -15,6 +15,7 @@ Supported statistics:
 - **Entities Killed** (including each type of entity)
 - **Killed By Entity** (including each type of entity)
 - **Interacted with Block or Entity** (including each type of block and entity)
+- **Highest Xp Level**
 
 > [!IMPORTANT]
 > This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
@@ -30,8 +31,17 @@ Displays a list of all available statistics.
 **Usage: `./stat <statistic>`**  
 Displays the specified statistic on the scoreboard.
 
+**Usage: `./stat <statistic/all> reset`**  
+Resets the counts for the specified statistic, or all statistics.
+
 **Usage: `./stat clear`**  
 Stops displaying the scoreboard.
 
-**Usage: `./stat <statistic/all> reset`**  
-Resets the counts for the specified statistic, or all statistics.
+**Usage: `./stat <statistic> print [player]`**  
+Prints the top 15 players for the specified statistic, or for only the specified player.
+
+**Usage: `./stat toggle [total/offline]`**  
+Toggles displaying the total count of the statistic, or displaying offline players.
+
+**Usage: `./transferstats`**  
+A utility command used to transfer statistics from v1.0.0 of this addon to v1.1.0.
