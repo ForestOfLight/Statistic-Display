@@ -34,8 +34,8 @@ Displays the specified statistic on the scoreboard.
 **Usage: `./stat <statistic/all> reset`**  
 Resets the counts for the specified statistic, or all statistics.
 
-**Usage: `./stat clear`**  
-Stops displaying the scoreboard.
+**Usage: `./stat hide`**  
+Hides the scoreboard.
 
 **Usage: `./stat <statistic> print [player]`**  
 Prints the top 15 players for the specified statistic, or for only the specified player.

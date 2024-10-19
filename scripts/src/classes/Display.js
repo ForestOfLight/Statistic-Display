@@ -22,7 +22,7 @@ class Display {
         this.update(activeEvent);
     }
 
-    static clear() {
+    static hide() {
         const success = world.scoreboard.clearObjectiveAtDisplaySlot(DISPLAY_SLOT);
         if (!success)
             return false;

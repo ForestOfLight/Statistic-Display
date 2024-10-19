@@ -33,4 +33,5 @@ function transferstatsCommandCallback(sender) {
             world.scoreboard.removeObjective(objective);
         }
     });
+    world.sendMessage('§aTransfer complete.');
 }

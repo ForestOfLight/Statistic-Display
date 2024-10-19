@@ -24,7 +24,7 @@ const statCommand = new Command({
         { usage: 'stat list', description: 'List all available statistics.' },
         { usage: 'stat <statistic>', description: 'Display a statistic on the scoreboard.' },
         { usage: 'stat <statistic/all> reset', description: 'Reset all counts for the specified statistic.' },
-        { usage: 'stat clear', description: 'Hide the scoreboard.' },
+        { usage: 'stat hide', description: 'Hides the scoreboard.' },
         { usage: 'stat <statistic> print [player]', description: 'Prints the top 10 or a specific player for the specified statistic.' },
         { usage: 'stat toggle [total/offline]', description: 'Toggle the display of total or offline players.' }
     ]
@@ -36,8 +36,8 @@ function statCommandCallback(sender, args) {
     if (name === null)
         return statCommand.sendUsage(sender);
 
-    if (name === 'clear') {
-        Display.clear();
+    if (name === 'hide') {
+        Display.hide();
         sender.sendMessage('§7Hid the statistics display.');
     } else if (name === 'list') {
         sender.sendMessage(`§aAvailable statistic names:${formatStatNames()}`);
@@ -46,7 +46,7 @@ function statCommandCallback(sender, args) {
         sender.sendMessage('§7Reset all statistics.');
     } else if (argTwo === 'reset' && eventManager.exists(name)) {
         eventManager.reset(name);
-        sender.sendMessage(`§7Reset all statistics for '${name}'.`);
+        sender.sendMessage(`§7Reset statistics for '${name}'.`);
     } else if (argTwo === 'print' && eventManager.exists(name)) {
         if (player === null)
             Display.printTop(sender, name);
