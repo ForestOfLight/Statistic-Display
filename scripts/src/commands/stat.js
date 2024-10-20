@@ -31,7 +31,7 @@ const statCommand = new Command({
         { usage: 'stat carousel <add/remove> <statistic>', description: 'Adds or removes a statistic from the carousel.' },
         { usage: 'stat carousel list', description: 'Lists all statistics in the carousel.' },
         { usage: 'stat carousel interval [seconds]', description: 'Sets the interval for the statistic carousel.' },
-        { usage: 'stat toggle [total/offline]', description: 'Toggle the display of the total or offline players.' }
+        { usage: 'stat toggle [total/offline]', description: 'Toggles whether the total field or offline players should be shown.' }
     ]
 });
 extension.addCommand(statCommand);

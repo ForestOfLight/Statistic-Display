@@ -54,7 +54,7 @@ Lists all statistics in the carousel.
 Sets the interval for the carousel to change statistics.
 
 **Usage: `./stat toggle [total/offline]`**  
-Toggles displaying the total count of the statistic, or displaying offline players.
+Toggles whether the total or offline players should be shown.
 
 **Usage: `./transferstats`**  
 A utility command used to transfer statistics from v1.0.0 of this addon to v1.1.0.
