@@ -85,6 +85,13 @@ class Event {
         world.setDynamicProperty(this.#dpIdentifier, JSON.stringify(data));
         Display.update(this);
     }
+
+    removeParticipant(player) {
+        const data = this.getData();
+        data.participants = data.participants.filter(participant => participant.name !== player.name);
+        world.setDynamicProperty(this.#dpIdentifier, JSON.stringify(data));
+        Display.update(this);
+    }
 }
 
 export { Event, EVENT_ID_PREFIX };

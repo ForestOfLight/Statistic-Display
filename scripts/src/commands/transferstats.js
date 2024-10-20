@@ -20,14 +20,18 @@ function transferstatsCommandCallback(sender) {
                 const player = { name: score.participant.displayName.slice(0, -1), id: score.participant.id };
                 const eventID = objective.id.replace('_', ':');
                 const displayName = objective.displayName;
+                if (score.participant.displayName === 'Total:') {
+                    eventManager.getEvent(eventID).removeParticipant(player);
+                    return;
+                }
 
                 console.warn(`[Stats] Transferring ${player.name}'s ${displayName} (${eventID})...`);
-                if (!eventManager.exists(eventID)) {
-                    eventManager.registerEvent(eventID, displayName, () => {});
-                    eventManager.setCount(eventID, player, score.score);
-                } else {
+                if (eventManager.exists(eventID)) {
                     const newCount = eventManager.getEvent(eventID).getCount(player);
                     eventManager.setCount(eventID, player, newCount + score.score);
+                } else {
+                    eventManager.registerEvent(eventID, displayName, () => {});
+                    eventManager.setCount(eventID, player, score.score);
                 }
             });
             world.scoreboard.removeObjective(objective);
