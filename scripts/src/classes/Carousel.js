@@ -71,6 +71,8 @@ class Carousel {
     }
 
     static onReload() {
+        if (!world.getDynamicPropertyIds().includes(DP_ID))
+            this.saveData();
         const data = JSON.parse(world.getDynamicProperty(DP_ID));
         this.entries = data.entries;
         this.interval = data.interval;
