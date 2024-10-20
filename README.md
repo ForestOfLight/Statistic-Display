@@ -14,6 +14,7 @@ Supported statistics:
 - **Blocks Placed** (including each type of block)
 - **Tools Broken** (including each type of tool)
 - **Items Used** (including each type of item)
+- **Effects Gained** (including each type of effect)
 - **Entities Killed** (including each type of entity)
 - **Killed By Entity** (including each type of entity)
 - **Interacted with Block or Entity** (including each type of block and entity)
