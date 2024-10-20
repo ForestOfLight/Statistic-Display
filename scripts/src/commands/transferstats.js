@@ -1,4 +1,4 @@
-import { world } from '@minecraft/server';
+import { EntityMovementBasicComponent, world } from '@minecraft/server';
 import { Command } from 'lib/canopy/CanopyExtension';
 import { extension } from 'src/config';
 import eventManager from 'src/classes/EventManager';
@@ -17,13 +17,10 @@ function transferstatsCommandCallback(sender) {
         if (['blocksMined', 'blocksPlaced', 'deaths', 'interactedWith', 'itemsUsed', 'killed', 'killedBy', 'playTime'].some(id => objective.id.includes(id))) {
             sender.sendMessage(`§cTransferring ${objective.id}...`);
             objective.getScores().forEach(score => {
+                if (score.participant.displayName === 'Total:') return;
                 const player = { name: score.participant.displayName.slice(0, -1), id: score.participant.id };
                 const eventID = objective.id.replace('_', ':');
                 const displayName = objective.displayName;
-                if (score.participant.displayName === 'Total:') {
-                    eventManager.getEvent(eventID).removeParticipant(player);
-                    return;
-                }
 
                 console.warn(`[Stats] Transferring ${player.name}'s ${displayName} (${eventID})...`);
                 if (eventManager.exists(eventID)) {
@@ -37,5 +34,13 @@ function transferstatsCommandCallback(sender) {
             world.scoreboard.removeObjective(objective);
         }
     });
+
+    eventManager.getEventIDs().forEach(eventID => {
+        const event = eventManager.getEvent(eventID);
+        if (!event.hasParticipant({ name: 'Total:' })) return;
+        console.warn(`Removing Total: from ${eventID}...`);
+        event.removeParticipant({ name: 'Total:' });
+    });
+
     world.sendMessage('§aTransfer complete.');
 }
