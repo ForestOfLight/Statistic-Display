@@ -17,6 +17,7 @@ Supported statistics:
 - **Entities Killed** (including each type of entity)
 - **Killed By Entity** (including each type of entity)
 - **Interacted with Block or Entity** (including each type of block and entity)
+- **Dimension Changes** (including each type of dimension)
 
 > [!IMPORTANT]
 > This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
