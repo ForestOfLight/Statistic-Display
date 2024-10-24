@@ -1,4 +1,4 @@
-<!-- ![Understudy Logo](./understudy_logo_banner.png) -->
+![Statistic Display Logo](./stat_logo_banner.jpg)
 
 [![GitHub Downloads](https://img.shields.io/github/downloads/ForestOfLight/Statistic-Display/total?label=Github%20downloads&logo=github)](https://github.com/ForestOfLight/Statistic-Display/releases/latest)
 [![Discord](https://badgen.net/discord/members/9KGche8fxm?icon=discord&label=Discord&list=what)](https://discord.gg/9KGche8fxm)
