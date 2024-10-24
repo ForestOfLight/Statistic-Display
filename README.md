@@ -1,4 +1,4 @@
-![Statistic Display Logo](./stat_logo_banner.jpg)
+![Statistic Display Logo](./stat_logo_banner.png)
 
 [![GitHub Downloads](https://img.shields.io/github/downloads/ForestOfLight/Statistic-Display/total?label=Github%20downloads&logo=github)](https://github.com/ForestOfLight/Statistic-Display/releases/latest)
 [![Discord](https://badgen.net/discord/members/9KGche8fxm?icon=discord&label=Discord&list=what)](https://discord.gg/9KGche8fxm)
