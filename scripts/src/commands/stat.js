@@ -23,7 +23,7 @@ const statCommand = new Command({
     contingentRules: ['commandStat'],
     helpEntries: [
         { usage: 'stat list', description: 'List all available statistics.' },
-        { usage: 'stat <statistic>', description: 'Display a statistic on the scoreboard.' },
+        { usage: 'stat <statistic>', description: 'Display a statistic on the scoreboard. (Format: eventName:sub_type)' },
         { usage: 'stat <statistic/all> reset', description: 'Reset all counts for the specified statistic.' },
         { usage: 'stat hide', description: 'Hides the scoreboard.' },
         { usage: 'stat <statistic> print [player]', description: 'Prints the top 10 or a specific player for the specified statistic.' },
@@ -68,10 +68,12 @@ function statCommandCallback(sender, args) {
         carouselHandler(sender, argTwo, argThree);
     } else if (eventManager.exists(argOne)) {
         const success = Display.set(argOne);
-        if (success)
+        if (success) {
+            Carousel.stop();
             sender.sendMessage(`§7Set the statistics display to '${argOne}'.`);
-        else
+        } else {
             sender.sendMessage('§cFailed to set the statistics display.');
+        }
     } else {
         sender.sendMessage(`§cStatistic '${argOne}' not found.`);
     }

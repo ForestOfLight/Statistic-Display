@@ -5,7 +5,13 @@ function getPlayer(name) {
 }
 
 function titleCase(str) {
-    return str.toLowerCase().replaceAll('_', ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    return str
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .toLowerCase()
+        .replaceAll('_', ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 }
 
 export { getPlayer, titleCase };

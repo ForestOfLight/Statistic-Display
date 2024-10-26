@@ -9,16 +9,22 @@ This is an addon for Minecraft Bedrock Edition that easily displays statistics o
 
 Supported statistics:
 - **Player Deaths**
-- **Highest Xp Level**
+- **Time Since Last Death**
 - **Blocks Mined** (including each type of block)
 - **Blocks Placed** (including each type of block)
 - **Tools Broken** (including each type of tool)
 - **Items Used** (including each type of item)
 - **Effects Gained** (including each type of effect)
+- **Damage Dealt**
+- **Damage Taken** (including each type of damage)
 - **Entities Killed** (including each type of entity)
 - **Killed By Entity** (including each type of entity)
 - **Interacted with Block or Entity** (including each type of block and entity)
 - **Dimension Changes** (including each type of dimension)
+- **Player Joins**
+- **Highest Xp Level**
+- **Chats Sent**
+- **Emotes Performed**
 
 > [!IMPORTANT]
 > This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
@@ -59,7 +65,7 @@ Sets the interval for the carousel to change statistics.
 Toggles whether the total or offline players should be shown.
 
 **Usage: `./transferstats`**  
-A utility command used to transfer statistics from v1.0.0 of this addon to v1.1.0.
+A utility command used to transfer statistics from v1.0.0 of this addon to v1.1.0. This command is only present in v1.1.0 & v1.1.1, and is removed in future versions.
 
 ---
 

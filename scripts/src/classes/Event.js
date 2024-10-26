@@ -40,8 +40,8 @@ class Event {
         this.#initializeDynamicProperty();
         Display.update(this);
     }
-
-    increment(player) {
+    
+    updateCount(player, count, operation = 'add') {
         const data = this.getData();
         if (!this.hasParticipant(player)) {
             data.participants.push({
@@ -50,20 +50,21 @@ class Event {
             });
         }
         const participant = data.participants.find(participant => participant.name === player.name);
-        participant.score++;
+        
+        switch (operation) {
+            case 'add':
+                participant.score += count;
+                break;
+            case 'set':
+            default:
+                participant.score = count;
+                break;
+        }
+
         world.setDynamicProperty(this.#dpIdentifier, JSON.stringify(data));
         Display.update(this);
     }
-
-    getTotal() {
-        const data = this.getData();
-        let total = 0;
-        for (const participant of data.participants) {
-            total += participant.score;
-        }
-        return total;
-    }
-
+    
     getCount(player) {
         const data = this.getData();
         const participant = data.participants.find(participant => participant.name === player.name);
@@ -71,19 +72,14 @@ class Event {
             return 0;
         return participant.score;
     }
-
-    setCount(player, count) {
+    
+    getTotal() {
         const data = this.getData();
-        if (!this.hasParticipant(player)) {
-            data.participants.push({
-                name: player.name,
-                score: 0
-            });
+        let total = 0;
+        for (const participant of data.participants) {
+            total += participant.score;
         }
-        const participant = data.participants.find(participant => participant.name === player.name);
-        participant.score = count;
-        world.setDynamicProperty(this.#dpIdentifier, JSON.stringify(data));
-        Display.update(this);
+        return total;
     }
 
     removeParticipant(player) {

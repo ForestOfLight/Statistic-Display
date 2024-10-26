@@ -38,13 +38,19 @@ class EventManager {
     increment(eventID, player) {
         if (!this.exists(eventID))
             throw new Error(`[Stats] Could not increment. Event '${eventID}' not found.`);
-        this.getEvent(eventID).increment(player);
+        this.getEvent(eventID).updateCount(player, 1);
     }
 
     setCount(eventID, player, count) {
         if (!this.validateEventID(eventID))
             throw new Error(`[Stats] Could not set count. Event '${eventID}' not found.`);
-        this.getEvent(eventID).setCount(player, count);
+        this.getEvent(eventID).updateCount(player, count, "set");
+    }
+
+    addCount(eventID, player, count) {
+        if (!this.validateEventID(eventID))
+            throw new Error(`[Stats] Could not add count. Event '${eventID}' not found.`);
+        this.getEvent(eventID).updateCount(player, count);
     }
 
     getCount(eventID, player) {
