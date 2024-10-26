@@ -14,12 +14,12 @@ Supported statistics:
 - **Blocks Placed** (including each type of block)
 - **Tools Broken** (including each type of tool)
 - **Items Used** (including each type of item)
+- **Interacted with Block or Entity** (including each type of block and entity)
 - **Effects Gained** (including each type of effect)
-- **Damage Dealt**
-- **Damage Taken** (including each type of damage)
 - **Entities Killed** (including each type of entity)
 - **Killed By Entity** (including each type of entity)
-- **Interacted with Block or Entity** (including each type of block and entity)
+- **Damage Dealt**
+- **Damage Taken** (including each type of damage)
 - **Dimension Changes** (including each type of dimension)
 - **Player Joins**
 - **Highest Xp Level**
