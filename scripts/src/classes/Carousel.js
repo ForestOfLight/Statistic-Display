@@ -48,6 +48,7 @@ class Carousel {
         this.isActive = true;
         if (this.runner)
             system.clearRun(this.runner);
+        this.next();
         this.runner = system.runInterval(() => {
             Display.set(this.next());
         }, this.interval);
