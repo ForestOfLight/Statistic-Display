@@ -27,6 +27,7 @@ Supported statistics:
 - **Emotes Performed**
 - **Other**
   - World Initialized
+  - Most Players Online
 
 > [!IMPORTANT]
 > This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.

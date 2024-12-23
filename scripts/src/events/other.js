@@ -8,4 +8,13 @@ eventManager.registerEvent(IDENTIFIER, 'Other', () => {
     world.afterEvents.worldInitialize.subscribe((event) => {
         eventManager.increment(IDENTIFIER, { name: 'World Initialized' });
     });
+
+    // Most Players On
+    world.afterEvents.playerJoin.subscribe((event) => {
+        const playerCount = world.getAllPlayers().length + 1;
+        const highestPlayersOnline = eventManager.getCount(IDENTIFIER, 'Most Players On');
+        if (highestPlayersOnline < playerCount) {
+            eventManager.setCount(IDENTIFIER, { name: 'Most Players On' }, playerCount);
+        }
+    });
 })
