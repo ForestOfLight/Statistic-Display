@@ -22,6 +22,7 @@ import 'src/events/chats';
 import 'src/events/emotes';
 import 'src/events/joins';
 import 'src/events/timeSinceDeath';
+import 'src/events/other';
 
 // Setup
 import Display from 'src/classes/Display';

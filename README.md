@@ -25,6 +25,8 @@ Supported statistics:
 - **Highest Xp Level**
 - **Chats Sent**
 - **Emotes Performed**
+- **Other**
+  - World Initialized
 
 > [!IMPORTANT]
 > This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
