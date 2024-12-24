@@ -23,11 +23,13 @@ Supported statistics:
 - **Dimension Changes** (including each type of dimension)
 - **Player Joins**
 - **Highest Xp Level**
+- **Longest Session**
 - **Chats Sent**
 - **Emotes Performed**
 - **Other**
   - World Initialized
   - Most Players Online
+  - Longest Inactivity
 
 > [!IMPORTANT]
 > This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
