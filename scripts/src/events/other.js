@@ -4,10 +4,11 @@ import eventManager from "src/classes/EventManager";
 const IDENTIFIER = 'other';
 
 eventManager.registerEvent(IDENTIFIER, 'Other', () => {
-    // Each of these is a single item in the scoreboard
+    // Each of these is a single line in the display.
     worldInitializations();
     mostPlayersOnline();
     longestInactivity();
+    tntExploded();
 })
 
 function worldInitializations() {
@@ -33,6 +34,14 @@ function longestInactivity() {
             currentInactivity++;
         const longestInactivity = eventManager.getCount(IDENTIFIER, 'Longest Inactivity');
         if (currentInactivity > longestInactivity)
-            eventManager.setCount(IDENTIFIER, 'Inactivity', currentInactivity);
+            eventManager.setCount(IDENTIFIER, { name: 'Inactivity' }, currentInactivity);
     }, 20*60);
+}
+
+function tntExploded() {
+    world.afterEvents.explosion.subscribe((event) => {
+        if (event.source?.typeId !== 'minecraft:tnt')
+            return;
+        eventManager.increment(IDENTIFIER, { name: 'TNT Exploded' });
+    });
 }

@@ -30,6 +30,7 @@ Supported statistics:
   - World Initialized
   - Most Players Online
   - Longest Inactivity
+  - TNT Exploded
 
 > [!IMPORTANT]
 > This addon is a **Canopy Extension**, which means **Canopy** must be installed in your world for it to work.
