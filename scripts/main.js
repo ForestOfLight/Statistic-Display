@@ -23,8 +23,6 @@ import 'src/events/emotes';
 import 'src/events/joins';
 import 'src/events/timeSinceDeath';
 import 'src/events/longestSession';
-import 'src/events/itemsPickedUp';
-import 'src/events/itemsDropped';
 import 'src/events/other';
 
 // Setup
