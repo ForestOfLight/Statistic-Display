@@ -1,4 +1,4 @@
-import { system, world } from "@minecraft/server";
+import { system, world, ItemComponentTypes } from "@minecraft/server";
 import eventManager from "src/classes/EventManager";
 import { titleCase } from "src/utils";
 
@@ -6,10 +6,10 @@ const IDENTIFIER = 'toolsBroken';
 
 eventManager.registerEvent(IDENTIFIER, 'Tools Broken', () => {
     world.beforeEvents.playerBreakBlock.subscribe((event) => {
-        if (!event.player) 
+        if (!event.player)
             return;
         const toolType = event.itemStack?.typeId.replace('minecraft:', '');
-        const durabilityComponent = event.itemStack?.getComponent('durability');
+        const durabilityComponent = event.itemStack?.getComponent(ItemComponentTypes.Durability);
         if (!durabilityComponent || durabilityComponent.maxDurability - durabilityComponent.damage > 0)
             return;
         system.run(() => {
