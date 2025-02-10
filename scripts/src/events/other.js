@@ -19,10 +19,10 @@ function worldInitializations() {
 
 function mostPlayersOnline() {
     world.afterEvents.playerJoin.subscribe((event) => {
-        const playerCount = world.getAllPlayers().length;
+        const onlinePlayerCount = world.getAllPlayers().length;
         const highestPlayersOnline = eventManager.getCount(IDENTIFIER, 'Most Players On');
-        if (highestPlayersOnline < playerCount)
-            eventManager.setCount(IDENTIFIER, { name: 'Most Players On' }, playerCount);
+        if (onlinePlayerCount > highestPlayersOnline)
+            eventManager.setCount(IDENTIFIER, { name: 'Most Players On' }, onlinePlayerCount);
     });
 }
 

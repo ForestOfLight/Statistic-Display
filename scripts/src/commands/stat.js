@@ -6,7 +6,7 @@ import Carousel from 'src/classes/Carousel';
 
 const commandStatRule = new Rule({
     identifier: 'commandStat',
-    description: 'Enables stat command.',
+    description: 'Enables stat command.'
 });
 extension.addRule(commandStatRule);
 
