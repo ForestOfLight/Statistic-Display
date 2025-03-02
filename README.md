@@ -44,7 +44,7 @@ Supported statistics:
 
 ## Usage
 
-All commands are prefixed with `./`. The `./stat` command is disabled until enabled with the `commandStat` rule. Do `./help` for more information.
+All commands are prefixed with `./`. Do `./help` for more information.
 
 **Usage: `./stat list`**  
 Displays a list of all available statistics.

@@ -4,12 +4,6 @@ import eventManager from 'src/classes/EventManager';
 import Display from 'src/classes/Display';
 import Carousel from 'src/classes/Carousel';
 
-const commandStatRule = new Rule({
-    identifier: 'commandStat',
-    description: 'Enables stat command.'
-});
-extension.addRule(commandStatRule);
-
 const statCommand = new Command({
     name: 'stat',
     description: 'Toggles custom statistics in the world\'s scoreboard.',
@@ -20,7 +14,6 @@ const statCommand = new Command({
         { type: 'string', name: 'argTwo' },
         { type: 'string|number', name: 'argThree' }
     ],
-    contingentRules: ['commandStat'],
     helpEntries: [
         { usage: 'stat list', description: 'List all available statistics.' },
         { usage: 'stat <statistic>', description: 'Display a statistic on the scoreboard. (Format: eventName:sub_type)' },
