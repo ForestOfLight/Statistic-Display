@@ -9,7 +9,7 @@
 
 # Statistic Display
 
-This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard. All statistics are tracked even when not on display and can be displayed with a single command. It is designed to be easy to add new statistics to and only uses one scoreboard objective!
+This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard. It is designed with multiplayer server in mind, but also works nicely for singleplayer worlds! All statistics are tracked even when not on display and can be displayed with a single command, and all with only one scoreboard objective.
 
 Supported statistics:
 
