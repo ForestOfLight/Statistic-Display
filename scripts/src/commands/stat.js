@@ -6,7 +6,7 @@ import Carousel from 'src/classes/Carousel';
 
 const statCommand = new Command({
     name: 'stat',
-    description: 'Toggles custom statistics in the world\'s scoreboard.',
+    description: { text: 'Toggles custom statistics in the world\'s scoreboard.' },
     usage: 'stat [args...]',
     callback: statCommandCallback,
     args: [
@@ -15,16 +15,16 @@ const statCommand = new Command({
         { type: 'string|number', name: 'argThree' }
     ],
     helpEntries: [
-        { usage: 'stat list', description: 'List all available statistics.' },
-        { usage: 'stat <statistic>', description: 'Display a statistic on the scoreboard. (Format: eventName:sub_type)' },
-        { usage: 'stat <statistic/all> reset', description: 'Reset all counts for the specified statistic.' },
-        { usage: 'stat hide', description: 'Hides the scoreboard.' },
-        { usage: 'stat <statistic> print [player]', description: 'Prints the top 10 or a specific player for the specified statistic.' },
-        { usage: 'stat carousel [start/stop]', description: 'Starts or stops the statistic carousel.' },
-        { usage: 'stat carousel <add/remove> <statistic>', description: 'Adds or removes a statistic from the carousel.' },
-        { usage: 'stat carousel list', description: 'Lists all statistics in the carousel.' },
-        { usage: 'stat carousel interval [seconds]', description: 'Sets the interval for the statistic carousel.' },
-        { usage: 'stat toggle [total/offline]', description: 'Toggles whether the total field or offline players should be shown.' }
+        { usage: 'stat list', description: { text: 'List all available statistics.' } },
+        { usage: 'stat <statistic>', description: { text: 'Display a statistic on the scoreboard. (Format: eventName:sub_type)' } },
+        { usage: 'stat <statistic/all> reset', description: { text: 'Reset all counts for the specified statistic.' } },
+        { usage: 'stat hide', description: { text: 'Hides the scoreboard.' } },
+        { usage: 'stat <statistic> print [player]', description: { text: 'Prints the top 10 or a specific player for the specified statistic.' } },
+        { usage: 'stat carousel [start/stop]', description: { text: 'Starts or stops the statistic carousel.' } },
+        { usage: 'stat carousel <add/remove> <statistic>', description: { text: 'Adds or removes a statistic from the carousel.' } },
+        { usage: 'stat carousel list', description: { text: 'Lists all statistics in the carousel.' } },
+        { usage: 'stat carousel interval [seconds]', description: { text: 'Sets the interval for the statistic carousel.' } },
+        { usage: 'stat toggle [total/offline]', description: { text: 'Toggles whether the total field or offline players should be shown.' } }
     ]
 });
 extension.addCommand(statCommand);
