@@ -12,13 +12,13 @@ eventManager.registerEvent(IDENTIFIER, 'Other', () => {
 })
 
 function worldInitializations() {
-    world.afterEvents.worldInitialize.subscribe((event) => {
+    world.afterEvents.worldLoad.subscribe(() => {
         eventManager.increment(IDENTIFIER, { name: 'World Initialized' });
     });
 }
 
 function mostPlayersOnline() {
-    world.afterEvents.playerJoin.subscribe((event) => {
+    world.afterEvents.playerJoin.subscribe(() => {
         const onlinePlayerCount = world.getAllPlayers().length;
         const highestPlayersOnline = eventManager.getCount(IDENTIFIER, 'Most Players On');
         if (onlinePlayerCount > highestPlayersOnline)

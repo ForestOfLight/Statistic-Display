@@ -1,15 +1,13 @@
 import { ObjectiveSortOrder, DisplaySlotId, world, system } from '@minecraft/server';
 import eventManager from "./EventManager";
+import { DisplaySettings } from './DisplaySettings';
 
 const DISPLAY_SLOT = DisplaySlotId.Sidebar;
 const DISPLAY_OBJECTIVE_ID = 'statDisplay';
 
 class Display {
-    static currentEvent = undefined;
-    static settings = {
-        showOfflinePlayers: world.getDynamicProperty('showOfflinePlayers') === true,
-        showTotal: world.getDynamicProperty('showTotal') === true
-    }
+    static settings = void 0;
+    static currentEvent = void 0;
 
     static onReload() {
         const activeObjective = world.scoreboard.getObjective(DISPLAY_OBJECTIVE_ID);
@@ -18,6 +16,7 @@ class Display {
         const activeEvent = eventManager.findEventByDisplayName(activeObjective.displayName);
         if (!activeEvent)
             throw Error(`[Stats] Could not reload. Did not find event with display name '${activeObjective.displayName}'.`);
+        this.settings = new DisplaySettings();
         this.currentEvent = activeEvent;
         this.update(activeEvent);
     }
@@ -91,10 +90,9 @@ class Display {
         setting = settingMap[setting];
         if (!setting)
             return null;
-        const currentValue = this.getSetting(setting);
+        const currentValue = this.settings.get(setting);
         const newValue = !currentValue;
-        world.setDynamicProperty(setting, newValue);
-        this.settings[setting] = newValue;
+        this.settings.commit(setting, newValue);
         this.update(this.currentEvent);
         return { setting, newValue };
     }
