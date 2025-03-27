@@ -1,15 +1,16 @@
 ![Statistic Display Logo](./stat_logo_banner.png)
 
+<div align="center">
+  <p><b>Multiplayer statistics that are just easy.</b></p>
+
 [![GitHub Downloads](https://img.shields.io/github/downloads/ForestOfLight/Statistic-Display/total?label=Github%20downloads&logo=github)](https://github.com/ForestOfLight/Statistic-Display/releases/latest)
 [![Curseforge Downloads](https://cf.way2muchnoise.eu/full_1127625_downloads.svg)](https://www.curseforge.com/minecraft-bedrock/scripts/statistic-display)
 [![Minecraft - Version](https://img.shields.io/badge/Minecraft-v1.21.60_(Bedrock)-brightgreen)](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c7b2ef373dee40b8a5d2903d3001231f)](https://app.codacy.com/gh/ForestOfLight/Statistic-Display/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![GitHub License](https://img.shields.io/github/license/forestoflight/statistic-display)](LICENSE)
 [![Discord](https://badgen.net/discord/members/9KGche8fxm?icon=discord&label=Discord&list=what)](https://discord.gg/9KGche8fxm)
+</div>
 
-# Statistic Display
-
-This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard. It is designed with multiplayer server in mind, but also works nicely for singleplayer worlds! All statistics are tracked even when not on display and can be displayed with a single command, and all with only one scoreboard objective.
+This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard. It is designed with multiplayer servers in mind, but also works nicely for singleplayer worlds! All statistics are tracked even when not on display and can be displayed with a single command, and all with only one scoreboard objective.
 
 Supported statistics:
 

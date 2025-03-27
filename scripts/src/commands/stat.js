@@ -1,4 +1,4 @@
-import { Rule, Command } from 'lib/canopy/CanopyExtension';
+import { Command } from 'lib/canopy/CanopyExtension';
 import { extension } from 'src/config';
 import eventManager from 'src/classes/EventManager';
 import Display from 'src/classes/Display';

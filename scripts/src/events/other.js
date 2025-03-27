@@ -12,7 +12,7 @@ eventManager.registerEvent(IDENTIFIER, 'Other', () => {
 })
 
 function worldInitializations() {
-    world.afterEvents.worldInitialize.subscribe((event) => {
+    world.afterEvents.worldLoad.subscribe((event) => {
         eventManager.increment(IDENTIFIER, { name: 'World Initialized' });
     });
 }

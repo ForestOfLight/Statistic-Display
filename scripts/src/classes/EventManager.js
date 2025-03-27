@@ -6,14 +6,19 @@ class EventManager {
     events = {};
     EVENT_LIST_ID = 'statEventList';
     SUBEVENT_DELIMITER = ':';
+    worldLoaded = false;
+    eventsToRegister = [];
 
     registerEvent(eventID, displayName, setupCallback) {
-        this.events[eventID] = new Event(eventID, displayName, setupCallback);
-
-        const eventList = this.getEventIDs();
-        if (!eventList.includes(eventID)) {
-            eventList.push(eventID);
-            BulkDP.save(this.EVENT_LIST_ID, eventList);
+        if (this.worldLoaded) {
+            this.events[eventID] = new Event(eventID, displayName, setupCallback);
+            const eventList = this.getEventIDs();
+            if (!eventList.includes(eventID)) {
+                eventList.push(eventID);
+                BulkDP.save(this.EVENT_LIST_ID, eventList);
+            }
+        } else {
+            this.eventsToRegister.push({ eventID, displayName, setupCallback });
         }
     }
     
@@ -97,8 +102,18 @@ class EventManager {
         }
         return undefined;
     }
+
+    registerQueuedEvents() {
+        for (const event of this.eventsToRegister)
+            this.registerEvent(event.eventID, event.displayName, event.setupCallback);
+        this.eventsToRegister = [];
+    }
 }
 
 const eventManager = new EventManager();
+world.afterEvents.worldLoad.subscribe(() => {
+    eventManager.worldLoaded = true;
+    eventManager.registerQueuedEvents();
+});
 
 export default eventManager;
