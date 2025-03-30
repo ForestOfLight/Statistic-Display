@@ -8,6 +8,8 @@ eventManager.registerEvent(IDENTIFIER, 'Entities Killed', () => {
     world.afterEvents.entityDie.subscribe((event) => {
         if (event.damageSource.damagingEntity?.typeId !== 'minecraft:player')
             return;
+        if (!event.deadEntity)
+            return;
         const entityID = event.deadEntity.typeId.replace('minecraft:', '');
         eventManager.increment(IDENTIFIER, event.damageSource.damagingEntity);
 
