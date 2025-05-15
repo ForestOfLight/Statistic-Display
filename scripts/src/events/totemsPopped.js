@@ -14,5 +14,7 @@ eventManager.registerEvent(IDENTIFIER, 'Totems Popped', () => {
 });
 
 function hasPoppedTotem(damage, damageSource) {
+    // When a totem is popped it sends two damage events. One will look like this and the other will be the actual damage taken.
+    // This will hopefully be patched by Mojang in the future.
     return damage < 0 && damageSource.cause === 'none';
 }
