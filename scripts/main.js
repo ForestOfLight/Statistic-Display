@@ -24,6 +24,7 @@ import './src/events/joins';
 import './src/events/timeSinceDeath';
 import './src/events/longestSession';
 import './src/events/other';
+import './src/events/totemsPopped';
 
 // Setup
 import Display from './src/classes/Display';
