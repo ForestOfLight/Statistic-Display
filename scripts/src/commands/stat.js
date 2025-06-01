@@ -4,6 +4,9 @@ import eventManager from 'src/classes/EventManager';
 import Display from 'src/classes/Display';
 import Carousel from 'src/classes/Carousel';
 
+const CMD_CLEAR = 'clear';
+const CMD_RANDOM = 'random';
+
 const statCommand = new Command({
     name: 'stat',
     description: { text: 'Toggles custom statistics in the world\'s scoreboard.' },
@@ -24,7 +27,9 @@ const statCommand = new Command({
         { usage: 'stat carousel <add/remove> <statistic>', description: { text: 'Adds or removes a statistic from the carousel.' } },
         { usage: 'stat carousel list', description: { text: 'Lists all statistics in the carousel.' } },
         { usage: 'stat carousel interval [seconds]', description: { text: 'Sets the interval for the statistic carousel.' } },
-        { usage: 'stat toggle [total/offline]', description: { text: 'Toggles whether the total field or offline players should be shown.' } }
+        { usage: 'stat toggle [total/offline]', description: { text: 'Toggles whether the total field or offline players should be shown.' } },
+        { usage: 'stat ' + CMD_CLEAR, description: { text: 'Clears all statistics from the stat list. THIS COMMAND REQUIRES A SERVER RESTART TO FULLY TAKE AFFECT.' } },
+        { usage: 'stat ' + CMD_RANDOM, description: { text: 'Displays a random stat on the scoreboard.' } }
     ]
 });
 extension.addCommand(statCommand);
@@ -33,7 +38,6 @@ function statCommandCallback(sender, args) {
     let { argOne, argTwo, argThree } = args;
     if (argOne === null)
         return statCommand.sendUsage(sender);
-
     if (argOne === 'hide') {
         Carousel.stop();
         Display.hide();
@@ -67,6 +71,25 @@ function statCommandCallback(sender, args) {
         } else {
             sender.sendMessage('§cFailed to set the statistics display.');
         }
+    } else if (argOne == CMD_CLEAR) {
+        eventManager.clear();
+        sender.sendMessage('§cMINECRAFT SERVER RESTART REQUIRED.');
+    } else if (argOne == CMD_RANDOM) {
+        const idList = eventManager.getEventIDs();
+        if (idList != null && idList.length > 0) {
+            // best rand option available afaik for javascript api
+            let eventIndex = Math.floor(Math.random() * idList.length);
+            const eventKey = idList[eventIndex];
+            const success = Display.set(eventKey);
+            if (success) {
+                Carousel.stop();
+                sender.sendMessage(`§7Set the statistics display to '${eventKey}'.`);
+            } else {
+                sender.sendMessage('§cFailed to set the statistics display.');
+            }
+        } else {
+            sender.sendMessage('§cFailed to set the statistics display.');
+        }
     } else {
         sender.sendMessage(`§cStatistic '${argOne}' not found.`);
     }
@@ -74,7 +97,7 @@ function statCommandCallback(sender, args) {
 
 function formatStatNames() {
     const eventList = eventManager.getEventIDs();
-    const baseEvents = []
+    const baseEvents = [];
     const subEvents = {};
     const heirarchySeparator = ':';
 

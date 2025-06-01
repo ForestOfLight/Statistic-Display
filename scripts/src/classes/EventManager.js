@@ -21,7 +21,7 @@ class EventManager {
             this.eventsToRegister.push({ eventID, displayName, setupCallback });
         }
     }
-    
+
     getEventIDs() {
         return BulkDP.load(this.EVENT_LIST_ID);
     }
@@ -39,7 +39,7 @@ class EventManager {
     isRegistered(eventID) {
         return this.events[eventID] !== undefined;
     }
-    
+
     increment(eventID, player) {
         if (!this.exists(eventID))
             throw new Error(`[Stats] Could not increment. Event '${eventID}' not found.`);
@@ -76,6 +76,16 @@ class EventManager {
         }
     }
 
+    /**
+     * not only reset all events, but also clear the event list
+     */
+    clear() {
+        this.resetAll(); // must be called before clearing the event list
+        // reset event list.. because of how events immediately register upon file import the easiest less error prone way to to apply a full clear is
+        // to restart the server after running this command
+        BulkDP.save(this.EVENT_LIST_ID, []);
+    }
+
     validateEventID(eventID) {
         if (this.isRegistered(eventID)) {
             return true;
@@ -83,7 +93,7 @@ class EventManager {
             const displayName = JSON.parse(world.getDynamicProperty(EVENT_ID_PREFIX + eventID)).displayName;
             if (!displayName)
                 return false;
-            this.registerEvent(eventID, displayName, () => {});
+            this.registerEvent(eventID, displayName, () => { });
             return true;
         } else {
             return false;
