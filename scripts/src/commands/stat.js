@@ -28,8 +28,8 @@ const statCommand = new Command({
         { usage: 'stat carousel list', description: { text: 'Lists all statistics in the carousel.' } },
         { usage: 'stat carousel interval [seconds]', description: { text: 'Sets the interval for the statistic carousel.' } },
         { usage: 'stat toggle [total/offline]', description: { text: 'Toggles whether the total field or offline players should be shown.' } },
-        { usage: 'stat ' + CMD_CLEAR, description: { text: 'Clears all statistics from the stat list. THIS COMMAND REQUIRES A SERVER RESTART TO FULLY TAKE AFFECT.' } },
-        { usage: 'stat ' + CMD_RANDOM, description: { text: 'Displays a random stat on the scoreboard.' } }
+        { usage: 'stat clear', description: { text: 'Clears all statistics from the stat list. THIS COMMAND REQUIRES A SERVER RESTART TO FULLY TAKE AFFECT.' } },
+        { usage: 'stat random', description: { text: 'Displays a random stat on the scoreboard.' } }
     ]
 });
 extension.addCommand(statCommand);
@@ -71,10 +71,10 @@ function statCommandCallback(sender, args) {
         } else {
             sender.sendMessage('§cFailed to set the statistics display.');
         }
-    } else if (argOne == CMD_CLEAR) {
+    } else if (argOne == 'clear') {
         eventManager.clear();
         sender.sendMessage('§cMINECRAFT SERVER RESTART REQUIRED.');
-    } else if (argOne == CMD_RANDOM) {
+    } else if (argOne == 'random') {
         const idList = eventManager.getEventIDs();
         if (idList != null && idList.length > 0) {
             // best rand option available afaik for javascript api
