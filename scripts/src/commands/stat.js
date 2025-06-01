@@ -4,9 +4,6 @@ import eventManager from 'src/classes/EventManager';
 import Display from 'src/classes/Display';
 import Carousel from 'src/classes/Carousel';
 
-const CMD_CLEAR = 'clear';
-const CMD_RANDOM = 'random';
-
 const statCommand = new Command({
     name: 'stat',
     description: { text: 'Toggles custom statistics in the world\'s scoreboard.' },
