@@ -77,6 +77,13 @@ Sets the interval for the carousel to change statistics.
 **Usage: `./stat toggle [total/offline]`**  
 Toggles whether the total or offline players should be shown.
 
+**Usage: `./stat random`**
+Displays a random stat on the scoreboard.
+
+**Usage: `./stat clear`**
+Resets and clears all available stats. This is different from `stat all reset` in that events that have not yet occurred after this command is executed are also removed from the stat list.  
+<strong style="color:red;">A SERVER RESTART IS REQUIRED TO COMPLETE THIS COMMAND, AND WILL CAUSE BASE STAT CATEGORIES TO NOT INCREMENT PROPERLY IF RESTART IS NOT PERFORMED.</strong>
+
 **Usage: `./transferstats`**  
 A utility command used to transfer statistics from v1.0.0 of this addon to v1.1.0. This command is only present in v1.1.0 & v1.1.1, and is removed in future versions.
 
