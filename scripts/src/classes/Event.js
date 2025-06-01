@@ -12,7 +12,7 @@ class Event {
         this.eventID = eventID;
         this.displayName = displayName;
         this.#dpIdentifier = EVENT_ID_PREFIX + eventID;
-        
+
         if (!world.getDynamicPropertyIds().includes(this.#dpIdentifier)) {
             this.#initializeDynamicProperty();
         }
@@ -32,7 +32,7 @@ class Event {
 
     hasParticipant(player) {
         const data = this.getData();
-        const participantNames = data.participants.map(participant => participant.name)
+        const participantNames = data.participants.map(participant => participant.name);
         return participantNames.includes(player.name);
     }
 
@@ -40,7 +40,7 @@ class Event {
         this.#initializeDynamicProperty();
         Display.update(this);
     }
-    
+
     updateCount(player, count, operation = 'add') {
         const data = this.getData();
         if (!this.hasParticipant(player)) {
@@ -50,7 +50,7 @@ class Event {
             });
         }
         const participant = data.participants.find(participant => participant.name === player.name);
-        
+
         switch (operation) {
             case 'add':
                 participant.score += count;
@@ -64,7 +64,7 @@ class Event {
         world.setDynamicProperty(this.#dpIdentifier, JSON.stringify(data));
         Display.update(this);
     }
-    
+
     getCount(player) {
         const data = this.getData();
         const participant = data.participants.find(participant => participant.name === player.name);
@@ -72,7 +72,7 @@ class Event {
             return 0;
         return participant.score;
     }
-    
+
     getTotal() {
         const data = this.getData();
         let total = 0;
