@@ -3,6 +3,8 @@ import { extension } from 'src/config';
 import eventManager from 'src/classes/EventManager';
 import Display from 'src/classes/Display';
 import Carousel from 'src/classes/Carousel';
+import { StatList } from '../classes/StatList';
+import { recolor } from '../utils';
 
 const statCommand = new Command({
     name: 'stat',
@@ -15,7 +17,7 @@ const statCommand = new Command({
         { type: 'string|number', name: 'argThree' }
     ],
     helpEntries: [
-        { usage: 'stat list', description: { text: 'List all available statistics.' } },
+        { usage: 'stat list [statistic/searchterm]', description: { text: 'List all available statistics. Use the searchterm to search for specific identifiers.' } },
         { usage: 'stat <statistic>', description: { text: 'Display a statistic on the scoreboard. (Format: eventName:sub_type)' } },
         { usage: 'stat <statistic/all> reset', description: { text: 'Reset all counts for the specified statistic.' } },
         { usage: 'stat hide', description: { text: 'Hides the scoreboard.' } },
@@ -39,7 +41,7 @@ function statCommandCallback(sender, args) {
         Display.hide();
         sender.sendMessage('§7Hid the statistics display.');
     } else if (argOne === 'list') {
-        sender.sendMessage(`§aAvailable statistic names:${formatStatNames()}`);
+        listHandler(sender, argTwo);
     } else if (argTwo === 'reset' && argOne === 'all') {
         eventManager.resetAll();
         sender.sendMessage('§7Reset all statistics.');
@@ -72,33 +74,58 @@ function statCommandCallback(sender, args) {
     }
 }
 
-function formatStatNames() {
-    const eventList = eventManager.getEventIDs();
-    const baseEvents = []
-    const subEvents = {};
-    const heirarchySeparator = ':';
-
-    for (const eventID of eventList) {
-        if (!eventID.includes(heirarchySeparator)) {
-            baseEvents.push(eventID);
-            subEvents[eventID] = [];
-        }
+function listHandler(sender, searchTerm) {
+    if (!searchTerm) {
+        printBaseStats(sender);
+    } else {
+        handleSubEventSearch(sender, searchTerm);
     }
-    for (const baseEvent of baseEvents) {
-        for (const eventID of eventList) {
-            if (eventID.includes(baseEvent + heirarchySeparator) && eventID !== baseEvent) {
-                subEvents[baseEvent].push(eventID.replace(baseEvent + heirarchySeparator, ''));
-            }
-        }
-    }
+}
 
+function printBaseStats(sender) {
+    const statList = new StatList(eventManager.getEventIDs());
     let output = '';
-    for (const eventID of Object.keys(subEvents)) {
-        output += `\n §7- §f${eventID}`;
-        if (subEvents[eventID].length > 0)
-            output += `§8${heirarchySeparator}[${subEvents[eventID].join('/')}]`;
+    for (const eventID of statList.getBaseEventIDs()) {
+        const subIDs = statList.getSubEventIDs(eventID);
+        output += `\n §7- ${eventID}`;
+        if (subIDs.length > 0)
+            output += `§8${eventManager.SUBEVENT_DELIMITER}identifier`;
     }
-    return output;
+    sender.sendMessage(`§7Available statistics:${output}\n§aUse ${Command.getPrefix()}stat list <statistic/searchterm> to search for specific identifiers (block or entity IDs).`);
+}
+
+function handleSubEventSearch(sender, searchTerm) {
+    const statList = new StatList(eventManager.getEventIDs());
+    const baseEvents = statList.getBaseEventIDs();
+    if (baseEvents.includes(searchTerm)) {
+        printAllSubEventsForBase(sender, statList, searchTerm);
+    } else {
+        printSubEventSearch(sender, statList, searchTerm);
+    }
+}
+
+function printAllSubEventsForBase(sender, statList, baseEvent) {
+    const subEvents = statList.getSubEventIDs(baseEvent);
+    if (subEvents.length > 0) {
+        let output = `§7Sub-statistics for '${baseEvent}':`;
+        for (const subEvent of subEvents)
+            output += `\n §7- ${baseEvent}${eventManager.SUBEVENT_DELIMITER}§f${subEvent}`;
+        sender.sendMessage(output);
+    } else {
+        sender.sendMessage(`§cThere are no sub-statistics for '${baseEvent}'.`);
+    }
+}
+
+function printSubEventSearch(sender, statList, searchTerm) {
+    let output = `§7Sub-statistic search results for '${searchTerm}':`;
+    const baseEvents = statList.getBaseEventIDs();
+    for (const baseEvent of baseEvents) {
+        const subEvents = statList.getSubEventIDs(baseEvent).filter(subEvent => subEvent.includes(searchTerm));
+        if (subEvents.length > 0) {
+            output += `\n §7- ${baseEvent}${eventManager.SUBEVENT_DELIMITER}§f${subEvents.join('§7, §f')}`;
+        }
+    }
+    sender.sendMessage(recolor(output, searchTerm, '§a'));
 }
 
 function carouselHandler(sender, action, arg) {
