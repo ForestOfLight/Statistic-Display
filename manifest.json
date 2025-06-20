@@ -1,11 +1,11 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Statistic Display v1.1.8",
+		"name": "Statistic Display v1.1.7",
 		"description": "Statistic tracking extension for §l§aCanopy§r by §aForestOfLight§r.",
 		"uuid": "493affcf-dec3-45c1-bad3-6d203fe72d24",
 		"min_engine_version": [1, 21, 90],
-		"version": [1, 1, 8]
+		"version": [1, 1, 7]
 	},
 	"modules": [
 		{
