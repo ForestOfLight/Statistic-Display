@@ -21,7 +21,7 @@ const statCommand = new Command({
         { usage: 'stat <statistic>', description: { text: 'Display a statistic on the scoreboard. (Format: eventName:sub_type)' } },
         { usage: 'stat <statistic/all> reset', description: { text: 'Reset all counts for the specified statistic.' } },
         { usage: 'stat hide', description: { text: 'Hides the scoreboard.' } },
-        { usage: 'stat <statistic> print [player]', description: { text: 'Prints the top 10 or a specific player for the specified statistic.' } },
+        { usage: 'stat <statistic> print [player]', description: { text: 'Prints the top 15 or a specific player for the specified statistic.' } },
         { usage: 'stat carousel [start/stop]', description: { text: 'Starts or stops the statistic carousel.' } },
         { usage: 'stat carousel <add/remove> <statistic>', description: { text: 'Adds or removes a statistic from the carousel.' } },
         { usage: 'stat carousel list', description: { text: 'Lists all statistics in the carousel.' } },
