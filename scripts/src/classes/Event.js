@@ -7,17 +7,15 @@ class Event {
     eventID;
     displayName;
     #dpIdentifier;
-    static dynamicPropertiesBeforeReload;
 
     constructor(eventID, displayName, setupCallback) {
         this.eventID = eventID;
         this.displayName = displayName;
         this.#dpIdentifier = EVENT_ID_PREFIX + eventID;
-
-        if (!this.dynamicPropertiesAtReload)
-            this.dynamicPropertiesAtReload = world.getDynamicPropertyIds();
-        if (!this.dynamicPropertiesAtReload.includes(this.#dpIdentifier))
+        
+        if (!world.getDynamicPropertyIds().includes(this.#dpIdentifier)) {
             this.#initializeDynamicProperty();
+        }
         setupCallback();
     }
 

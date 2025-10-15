@@ -8,7 +8,6 @@ class EventManager {
     SUBEVENT_DELIMITER = ':';
     worldLoaded = false;
     eventsToRegister = [];
-    eventIDs = [];
 
     registerEvent(eventID, displayName, setupCallback) {
         if (this.worldLoaded) {
@@ -24,9 +23,7 @@ class EventManager {
     }
     
     getEventIDs() {
-        if (this.eventIDs.length !== Object.keys(this.events).length)
-            this.eventIDs = BulkDP.load(this.EVENT_LIST_ID);
-        return this.eventIDs;
+        return BulkDP.load(this.EVENT_LIST_ID);
     }
 
     getEvent(eventID) {
