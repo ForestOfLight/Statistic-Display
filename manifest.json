@@ -1,11 +1,11 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Statistic Display v1.1.10",
+		"name": "Statistic Display v1.1.11",
 		"description": "Statistic tracking extension for §l§aCanopy§r by §aForestOfLight§r.",
 		"uuid": "493affcf-dec3-45c1-bad3-6d203fe72d24",
-		"min_engine_version": [1, 21, 120],
-		"version": [1, 1, 10]
+		"min_engine_version": [1, 21, 130],
+		"version": [1, 1, 11]
 	},
 	"modules": [
 		{
@@ -26,11 +26,11 @@
 	"dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "2.4.0-beta"
+			"version": "2.5.0-beta"
 		},
 		{
 			"uuid": "7f6b23df-a583-476b-b0e4-87457e65f7c0", // Canopy BP
-			"version": [1, 4, 3]
+			"version": [1, 5, 2]
 		}
 	]
 }
