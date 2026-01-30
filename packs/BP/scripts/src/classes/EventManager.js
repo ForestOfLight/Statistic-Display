@@ -1,6 +1,6 @@
 import { world } from '@minecraft/server';
-import { Event, EVENT_ID_PREFIX } from 'src/classes/Event';
-import BulkDP from 'src/classes/BulkDP';
+import { Event, EVENT_ID_PREFIX } from './Event';
+import BulkDP from './BulkDP';
 
 class EventManager {
     events = {};
@@ -107,6 +107,11 @@ class EventManager {
         for (const event of this.eventsToRegister)
             this.registerEvent(event.eventID, event.displayName, event.setupCallback);
         this.eventsToRegister = [];
+    }
+
+    getEventIDCaseInsensitive(eventID) {
+        const foundEventID = this.getEventIDs().find((realEventID) => realEventID.toLowerCase() === eventID.toLowerCase());
+        return foundEventID !== void 0 ? foundEventID : void 0;
     }
 }
 

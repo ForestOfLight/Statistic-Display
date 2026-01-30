@@ -1,8 +1,8 @@
 import { Command } from 'lib/canopy/CanopyExtension';
-import { extension } from 'src/config';
-import eventManager from 'src/classes/EventManager';
-import Display from 'src/classes/Display';
-import Carousel from 'src/classes/Carousel';
+import { extension } from '../config';
+import eventManager from '../classes/EventManager';
+import Display from '../classes/Display';
+import Carousel from '../classes/Carousel';
 import { StatList } from '../classes/StatList';
 import { recolor } from '../utils';
 
@@ -36,6 +36,7 @@ function statCommandCallback(sender, args) {
     if (argOne === null)
         return statCommand.sendUsage(sender);
 
+    const eventID = eventManager.getEventIDCaseInsensitive(argOne);
     if (argOne === 'hide') {
         Carousel.stop();
         Display.hide();
@@ -45,10 +46,10 @@ function statCommandCallback(sender, args) {
     } else if (argTwo === 'reset' && argOne === 'all') {
         eventManager.resetAll();
         sender.sendMessage('§7Reset all statistics.');
-    } else if (argTwo === 'reset' && eventManager.exists(argOne)) {
+    } else if (argTwo === 'reset' && eventID) {
         eventManager.reset(argOne);
         sender.sendMessage(`§7Reset statistics for '${argOne}'.`);
-    } else if (argTwo === 'print' && eventManager.exists(argOne)) {
+    } else if (argTwo === 'print' && eventID) {
         if (argThree === null)
             Display.printTop(sender, argOne);
         else
@@ -61,7 +62,7 @@ function statCommandCallback(sender, args) {
             sender.sendMessage(`§cInvalid setting: ${argTwo}.`);
     } else if (argOne === 'carousel') {
         carouselHandler(sender, argTwo, argThree);
-    } else if (eventManager.exists(argOne)) {
+    } else if (eventID) {
         const success = Display.set(argOne);
         if (success) {
             Carousel.stop();
