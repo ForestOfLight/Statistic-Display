@@ -6,7 +6,7 @@ const IDENTIFIER = 'itemsPickedUp';
 
 eventManager.registerEvent(IDENTIFIER, 'Items Picked Up', () => {
     world.beforeEvents.entityItemPickup.subscribe((event) => {
-        if (!event.entity || event.entity.typeId !== "minecraft:player") 
+        if (!event.entity)
             return;
         const itemStack = event.item?.getComponent(EntityComponentTypes.Item)?.itemStack;
         const itemType = itemStack.typeId.replace("minecraft:", "");
@@ -18,5 +18,5 @@ eventManager.registerEvent(IDENTIFIER, 'Items Picked Up', () => {
                 eventManager.registerEvent(`${IDENTIFIER}${eventManager.SUBEVENT_DELIMITER}${itemType}`, `${titleCase(itemType)} Picked Up`, () => {});
             eventManager.addCount(`${IDENTIFIER}${eventManager.SUBEVENT_DELIMITER}${itemType}`, event.entity, count);
         });
-    });
+    }, { entityFilter: { type: "minecraft:player" } });
 });

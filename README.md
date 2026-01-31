@@ -27,6 +27,7 @@ Supported statistics:
 - **Damage Dealt**
 - **Damage Taken** (including each type of damage)
 - **Items Picked Up** (including each type of item)
+- **Items Dropped** (including each type of item)
 - **Dimension Changes** (including each type of dimension)
 - **Player Joins**
 - **Highest Xp Level**
