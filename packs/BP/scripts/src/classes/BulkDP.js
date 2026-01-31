@@ -1,40 +1,50 @@
 import { world } from "@minecraft/server";
 
-class BulkDP {
-    static DP_MAX_LENGTH = 32767;
+const DP_MAX_LENGTH = 32767;
 
-    static load(bulkIdentifier) {
-        if (!world.getDynamicPropertyIds().includes(bulkIdentifier))
-            return [];
-        
-        let result = '';
-        JSON.parse(world.getDynamicProperty(bulkIdentifier)).forEach(identifier => {
-            result += world.getDynamicProperty(identifier);
-        });
-        return JSON.parse(result);
+export class BulkDP {
+    bulkCache = void 0;
+
+    constructor(bulkDPIdentifier) {
+        this.bulkDPIdentifier = bulkDPIdentifier;
     }
 
-    static save(bulkIdentifier, value) {
+    get() {
+        if (this.bulkCache !== void 0)
+            return this.bulkCache;
+        if (!world.getDynamicPropertyIds().includes(this.bulkDPIdentifier)) {
+            this.bulkCache = [];
+            return this.bulkCache;
+        }
+        let result = '';
+        JSON.parse(world.getDynamicProperty(this.bulkDPIdentifier)).forEach(identifier => {
+            result += world.getDynamicProperty(identifier);
+        });
+        this.bulkCache = JSON.parse(result);
+        return this.bulkCache;
+    }
+
+    set(value) {
+        this.bulkCache = value;
         const valueStr = JSON.stringify(value);
         const identifiers = [];
         for (let i = 0, chunkID = 0; i < valueStr.length; i += this.DP_MAX_LENGTH, chunkID++) {
             const chunk = valueStr.slice(i, i + this.DP_MAX_LENGTH);
-            const identifier = `${bulkIdentifier}-${chunkID}`;
+            const identifier = `${this.bulkDPIdentifier}-${chunkID}`;
             world.setDynamicProperty(identifier, chunk);
             identifiers.push(identifier);
         }
-        world.setDynamicProperty(bulkIdentifier, JSON.stringify(identifiers));
+        world.setDynamicProperty(this.bulkDPIdentifier, JSON.stringify(identifiers));
         return identifiers;
     }
 
-    static remove(bulkIdentifier) {
-        if (!world.getDynamicPropertyIds().includes(bulkIdentifier))
-            throw Error(`[Stats] Could not remove dynamic property. Property '${bulkIdentifier}' not found.`);
-        JSON.parse(world.getDynamicProperty(bulkIdentifier)).forEach(identifier => {
-            world.setDynamicProperty(identifier, undefined);
+    delete() {
+        if (!world.getDynamicPropertyIds().includes(this.bulkDPIdentifier))
+            throw Error(`[Stats] Could not remove dynamic property. Property '${this.bulkDPIdentifier}' not found.`);
+        JSON.parse(world.getDynamicProperty(this.bulkDPIdentifier)).forEach(identifier => {
+            world.setDynamicProperty(identifier, void 0);
         });
-        world.setDynamicProperty(bulkIdentifier, undefined);
+        world.setDynamicProperty(this.bulkDPIdentifier, void 0);
+        this.bulkCache = void 0;
     }
 }
-
-export default BulkDP;

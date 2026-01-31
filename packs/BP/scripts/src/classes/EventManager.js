@@ -1,13 +1,13 @@
 import { world } from '@minecraft/server';
 import { Event, EVENT_ID_PREFIX } from './Event';
-import BulkDP from './BulkDP';
+import { BulkDP } from './BulkDP';
 
 class EventManager {
     events = {};
-    EVENT_LIST_ID = 'statEventList';
     SUBEVENT_DELIMITER = ':';
     worldLoaded = false;
     eventsToRegister = [];
+    eventIDList = new BulkDP('statEventList');
 
     registerEvent(eventID, displayName, setupCallback) {
         if (this.worldLoaded) {
@@ -15,7 +15,7 @@ class EventManager {
             const eventList = this.getEventIDs();
             if (!eventList.includes(eventID)) {
                 eventList.push(eventID);
-                BulkDP.save(this.EVENT_LIST_ID, eventList);
+                eventIDList.set(eventList);
             }
         } else {
             this.eventsToRegister.push({ eventID, displayName, setupCallback });
@@ -23,7 +23,7 @@ class EventManager {
     }
     
     getEventIDs() {
-        return BulkDP.load(this.EVENT_LIST_ID);
+        return this.eventIDList.get();
     }
 
     getEvent(eventID) {
@@ -37,7 +37,7 @@ class EventManager {
     }
 
     isRegistered(eventID) {
-        return this.events[eventID] !== undefined;
+        return this.events[eventID] !== void 0;
     }
     
     increment(eventID, player) {
@@ -100,7 +100,7 @@ class EventManager {
                 console.warn(error);
             }
         }
-        return undefined;
+        return void 0;
     }
 
     registerQueuedEvents() {
