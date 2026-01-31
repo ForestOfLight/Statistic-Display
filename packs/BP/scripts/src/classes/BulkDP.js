@@ -17,9 +17,15 @@ export class BulkDP {
             return this.bulkCache;
         }
         let result = '';
-        JSON.parse(world.getDynamicProperty(this.bulkDPIdentifier)).forEach(identifier => {
-            result += world.getDynamicProperty(identifier);
-        });
+        const identifiers = JSON.parse(world.getDynamicProperty(this.bulkDPIdentifier))
+        for (const identifier of identifiers) {
+            const chunk = world.getDynamicProperty(identifier);
+            if (!chunk) {
+                console.warn(`[Stats] BulkDP error: Missing data chunk in Dynamic Property: '${identifier}. Returning no data.`);
+                return [];
+            }
+            result += chunk;
+        };
         this.bulkCache = JSON.parse(result);
         return this.bulkCache;
     }
@@ -28,8 +34,8 @@ export class BulkDP {
         this.bulkCache = value;
         const valueStr = JSON.stringify(value);
         const identifiers = [];
-        for (let i = 0, chunkID = 0; i < valueStr.length; i += this.DP_MAX_LENGTH, chunkID++) {
-            const chunk = valueStr.slice(i, i + this.DP_MAX_LENGTH);
+        for (let i = 0, chunkID = 0; i < valueStr.length; i += DP_MAX_LENGTH, chunkID++) {
+            const chunk = valueStr.slice(i, i + DP_MAX_LENGTH);
             const identifier = `${this.bulkDPIdentifier}-${chunkID}`;
             world.setDynamicProperty(identifier, chunk);
             identifiers.push(identifier);

@@ -15,7 +15,7 @@ class EventManager {
             const eventList = this.getEventIDs();
             if (!eventList.includes(eventID)) {
                 eventList.push(eventID);
-                eventIDList.set(eventList);
+                this.eventIDList.set(eventList);
             }
         } else {
             this.eventsToRegister.push({ eventID, displayName, setupCallback });
