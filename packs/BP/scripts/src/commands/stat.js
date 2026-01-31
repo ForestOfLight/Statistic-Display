@@ -98,8 +98,9 @@ function printBaseStats(sender) {
 function handleSubEventSearch(sender, searchTerm) {
     const statList = new StatList(eventManager.getEventIDs());
     const baseEvents = statList.getBaseEventIDs();
-    if (baseEvents.includes(searchTerm)) {
-        printAllSubEventsForBase(sender, statList, searchTerm);
+    const searchedEventID = eventManager.getEventIDCaseInsensitive(searchTerm);
+    if (baseEvents.includes(searchedEventID)) {
+        printAllSubEventsForBase(sender, statList, searchedEventID);
     } else {
         printSubEventSearch(sender, statList, searchTerm);
     }
