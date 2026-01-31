@@ -26,6 +26,7 @@ Supported statistics:
 - **Killed By Entity** (including each type of entity)
 - **Damage Dealt**
 - **Damage Taken** (including each type of damage)
+- **Items Picked Up** (including each type of item)
 - **Dimension Changes** (including each type of dimension)
 - **Player Joins**
 - **Highest Xp Level**

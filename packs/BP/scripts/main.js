@@ -25,6 +25,7 @@ import './src/events/timeSinceDeath';
 import './src/events/longestSession';
 import './src/events/other';
 import './src/events/totemsPopped';
+import './src/events/itemsPickedUp';
 
 // Setup
 import Display from './src/classes/Display';
