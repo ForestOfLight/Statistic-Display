@@ -47,13 +47,13 @@ function statCommandCallback(sender, args) {
         eventManager.resetAll();
         sender.sendMessage('§7Reset all statistics.');
     } else if (argTwo === 'reset' && eventID) {
-        eventManager.reset(argOne);
-        sender.sendMessage(`§7Reset statistics for '${argOne}'.`);
+        eventManager.reset(eventID);
+        sender.sendMessage(`§7Reset statistics for '${eventID}'.`);
     } else if (argTwo === 'print' && eventID) {
         if (argThree === null)
-            Display.printTop(sender, argOne);
+            Display.printTop(sender, eventID);
         else
-            Display.printPlayer(sender, argOne, argThree);
+            Display.printPlayer(sender, eventID, argThree);
     } else if (argOne === 'toggle') {
         const state = Display.toggleSetting(argTwo);
         if (state !== null)
@@ -63,10 +63,10 @@ function statCommandCallback(sender, args) {
     } else if (argOne === 'carousel') {
         carouselHandler(sender, argTwo, argThree);
     } else if (eventID) {
-        const success = Display.set(argOne);
+        const success = Display.set(eventID);
         if (success) {
             Carousel.stop();
-            sender.sendMessage(`§7Set the statistics display to '${argOne}'.`);
+            sender.sendMessage(`§7Set the statistics display to '${eventID}'.`);
         } else {
             sender.sendMessage('§cFailed to set the statistics display.');
         }
