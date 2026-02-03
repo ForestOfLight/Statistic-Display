@@ -1,10 +1,10 @@
-import { VanillaCommand, PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin } from "../../lib/canopy/CanopyExtension";
+import { Command, PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin } from "../../lib/canopy/CanopyExtension";
 import { CustomCommandParamType, CommandPermissionLevel, CustomCommandStatus } from "@minecraft/server";
 import eventManager from "../classes/EventManager";
 import { StatList } from "../classes/StatList";
 import { recolor } from "../utils";
 
-export class StatListCommand extends VanillaCommand {
+export class StatListCommand extends Command {
     constructor() {
         super({
             name: 'stat:list',
@@ -61,7 +61,9 @@ export class StatListCommand extends VanillaCommand {
         let output = `§7Sub-statistic search results for '${searchTerm}':`;
         const baseEvents = statList.getBaseEventIDs();
         for (const baseEvent of baseEvents) {
-            const subEvents = statList.getSubEventIDs(baseEvent).filter(subEvent => (baseEvent + subEvent).includes(searchTerm));
+            const subEvents = statList.getSubEventIDs(baseEvent).filter(subEvent => 
+                (baseEvent + eventManager.SUBEVENT_DELIMITER + subEvent).toLowerCase().includes(searchTerm.toLowerCase())
+            );
             if (subEvents.length > 0) {
                 output += `\n §7- ${baseEvent}${eventManager.SUBEVENT_DELIMITER}§f${subEvents.join('§7, §f')}`;
             }

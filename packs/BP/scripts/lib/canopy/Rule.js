@@ -22,8 +22,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import { extension } from 'main';
 import { world } from '@minecraft/server';
-import { extension } from '../../src/config';
 
 export class Rule {
     #identifier;

@@ -1,16 +1,26 @@
-import './src/config';
+import { CanopyExtension } from './lib/canopy/CanopyExtension';
+
+export const extension = new CanopyExtension({
+    name: 'StatisticDisplay',
+    description: 'Statistic tracking for §l§aCanopy§r.',
+    version: '1.1.12'
+});
 
 // Commands
-import './src/commands/statstat';
+import './src/commands/stat';
 import './src/commands/statlist';
 import './src/commands/statreset';
 import './src/commands/statprint';
 import './src/commands/statcarousel';
 
 // Rules
-import './src/rules/showOfflinePlayers';
-import './src/rules/showTotal';
-import './src/rules/carouselInterval';
+import { showOfflinePlayers } from './src/rules/showOfflinePlayers';
+import { showTotal } from './src/rules/showTotal';
+import { carouselInterval } from './src/rules/carouselInterval';
+
+extension.addRule(showOfflinePlayers);
+extension.addRule(showTotal);
+extension.addRule(carouselInterval);
 
 // Events
 import './src/events/blocksMined';

@@ -22,11 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import { world } from '@minecraft/server';
 import IPC from '../../lib/ipc/ipc';
-import Command from './Command';
-import { CommandCallbackRequest, CommandPrefixRequest, Ready, RegisterCommand, RegisterExtension, RegisterRule, RuleValueRequest, RuleValueSet, CommandPrefixResponse, RuleValueResponse } from './extension.ipc';
-import { VanillaCommand } from './VanillaCommand';
+import { Ready, RegisterExtension, RegisterRule, RuleValueRequest, RuleValueSet, RuleValueResponse } from './extension.ipc';
+import { Command } from './Command';
 import { BlockCommandOrigin } from './BlockCommandOrigin';
 import { EntityCommandOrigin } from './EntityCommandOrigin';
 import { PlayerCommandOrigin } from './PlayerCommandOrigin';
@@ -42,7 +40,6 @@ class CanopyExtension {
     version;
     author;
     description;
-    #commands = {};
     #rules = {};
     #isRegistrationReady = false;
 
@@ -54,18 +51,8 @@ class CanopyExtension {
         this.description = description;
 
         this.#registerExtension();
-        this.#setupCommandPrefix();
-        this.#handleCommandCallbacks();
         this.#handleRuleValueRequests();
         this.#handleRuleValueSetters();
-    }
-    
-    addCommand(command) {
-        if (!(command instanceof Command))
-            throw new Error(`[${this.name}] Command must be an instance of Command.`);
-        this.#commands[command.getName()] = command;
-        if (this.#isRegistrationReady)
-            this.#registerCommand(command);
     }
 
     addRule(rule) {
@@ -102,35 +89,6 @@ class CanopyExtension {
             this.#isRegistrationReady = true;
             for (const rule of Object.values(this.#rules))
                 this.#registerRule(rule);
-            for (const command of Object.values(this.#commands))
-                this.#registerCommand(command);
-        });
-    }
-
-    #registerCommand(command) {
-        IPC.send(`canopyExtension:${this.id}:registerCommand`, RegisterCommand, {
-            name: command.getName(),
-            description: command.getDescription(),
-            usage: command.getUsage(),
-            callback: false,
-            args: command.getArgs(),
-            contingentRules: command.getContingentRules(),
-            adminOnly: command.isAdminOnly(),
-            helpEntries: command.getHelpEntries(),
-            helpHidden: command.isHelpHidden(),
-            extensionName: this.name
-        });
-    }
-    
-    #handleCommandCallbacks() {
-        IPC.on(`canopyExtension:${this.id}:commandCallbackRequest`, CommandCallbackRequest, (cmdData) => {
-            if (cmdData.senderName === undefined)
-                return;
-            const sender = world.getPlayers({ name: cmdData.senderName })[0];
-            if (!sender)
-                throw new Error(`[${this.name}] Sender ${cmdData.senderName} of ${cmdData.commandName} not found.`);
-            const parsedArgs = JSON.parse(cmdData.args);
-            this.#commands[cmdData.commandName].runCallback(sender, parsedArgs);
         });
     }
 
@@ -168,16 +126,10 @@ class CanopyExtension {
             rule.setValue(rule.parseRuleValueString(data.value));
         });
     }
-
-    #setupCommandPrefix() {
-        IPC.invoke(`canopyExtension:commandPrefixRequest`, CommandPrefixRequest, void 0, CommandPrefixResponse).then(result => {
-            Command.setPrefix(result.prefix);
-        });
-    }
 }
 
 export {
     CanopyExtension,
-    Command, VanillaCommand, BlockCommandOrigin, EntityCommandOrigin, PlayerCommandOrigin, ServerCommandOrigin, FeedbackMessageType,
+    Command, BlockCommandOrigin, EntityCommandOrigin, PlayerCommandOrigin, ServerCommandOrigin, FeedbackMessageType,
     BooleanRule, IntegerRule, FloatRule
 };

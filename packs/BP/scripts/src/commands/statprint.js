@@ -1,9 +1,9 @@
-import { VanillaCommand, PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin } from "../../lib/canopy/CanopyExtension";
+import { Command, PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin } from "../../lib/canopy/CanopyExtension";
 import { CustomCommandParamType, CommandPermissionLevel, CustomCommandStatus, system } from "@minecraft/server";
 import eventManager from "../classes/EventManager";
 import Display from "../classes/Display";
 
-export class StatPrintCommand extends VanillaCommand {
+export class StatPrintCommand extends Command {
     constructor() {
         super({
             name: 'stat:print',

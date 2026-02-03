@@ -1,6 +1,5 @@
 import { FloatRule } from "../../lib/canopy/CanopyExtension";
 import Carousel from "../classes/Carousel";
-import { extension } from "../config";
 
 class CarouselInterval extends FloatRule {
     constructor() {
@@ -15,4 +14,3 @@ class CarouselInterval extends FloatRule {
 }
 
 export const carouselInterval = new CarouselInterval();
-extension.addRule(carouselInterval);

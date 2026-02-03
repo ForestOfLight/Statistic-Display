@@ -1,6 +1,5 @@
 import { BooleanRule } from "../../lib/canopy/CanopyExtension";
 import Display from "../classes/Display";
-import { extension } from "../config";
 
 class ShowTotal extends BooleanRule {
     constructor() {
@@ -15,4 +14,3 @@ class ShowTotal extends BooleanRule {
 }
 
 export const showTotal = new ShowTotal();
-extension.addRule(showTotal);

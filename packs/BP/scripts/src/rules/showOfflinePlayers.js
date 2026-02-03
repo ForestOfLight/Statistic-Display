@@ -1,7 +1,6 @@
 import { BooleanRule } from "../../lib/canopy/CanopyExtension";
 import { world, system } from '@minecraft/server';
 import Display from "../classes/Display";
-import { extension } from "../config";
 
 class ShowOfflinePlayers extends BooleanRule {
     constructor() {
@@ -46,4 +45,3 @@ class ShowOfflinePlayers extends BooleanRule {
 }
 
 export const showOfflinePlayers = new ShowOfflinePlayers();
-extension.addRule(showOfflinePlayers);

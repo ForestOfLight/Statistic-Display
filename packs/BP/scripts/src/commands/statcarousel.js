@@ -1,4 +1,4 @@
-import { VanillaCommand, PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin } from "../../lib/canopy/CanopyExtension";
+import { Command, PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin } from "../../lib/canopy/CanopyExtension";
 import { CustomCommandParamType, CommandPermissionLevel, CustomCommandStatus, system } from "@minecraft/server";
 import eventManager from "../classes/EventManager";
 import Carousel from "../classes/Carousel";
@@ -11,7 +11,7 @@ const CAROUSEL_ACTIONS = Object.freeze({
     LIST: 'list'
 });
 
-export class StatCarouselCommand extends VanillaCommand {
+export class StatCarouselCommand extends Command {
     constructor() {
         super({
             name: 'stat:carousel',

@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import { extension } from 'main';
 import { Rule } from './Rule';
 
 export class IntegerRule extends Rule {
@@ -54,6 +55,8 @@ export class IntegerRule extends Rule {
     }
 
     #parseValueRange(valueRange) {
+        if (!valueRange)
+            throw new Error(`[${extension.name}] valueRange must be defined.`);
         if (valueRange.range) {
             valueRange.range.min = parseFloat(valueRange.range.min);
             valueRange.range.max = parseFloat(valueRange.range.max);

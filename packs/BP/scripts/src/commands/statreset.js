@@ -1,8 +1,8 @@
-import { VanillaCommand, PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin } from "../../lib/canopy/CanopyExtension";
+import { Command, PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin } from "../../lib/canopy/CanopyExtension";
 import { CustomCommandParamType, CommandPermissionLevel, CustomCommandStatus, system } from "@minecraft/server";
 import eventManager from "../classes/EventManager";
 
-export class StatResetCommand extends VanillaCommand {
+export class StatResetCommand extends Command {
     constructor() {
         super({
             name: 'stat:reset',

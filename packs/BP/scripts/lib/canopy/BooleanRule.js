@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import { extension } from '../../src/config';
+import { extension } from 'main';
 import { Rule } from './Rule';
 
 export class BooleanRule extends Rule {

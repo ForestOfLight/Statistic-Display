@@ -18,25 +18,6 @@ export const RegisterExtension = PROTO.Object({
     isEndstone: PROTO.Boolean
 });
 
-export const RegisterCommand = PROTO.Object({
-    name: PROTO.String,
-    description: rawtext,
-    usage: PROTO.String,
-    callback: PROTO.Optional(PROTO.Undefined),
-    args: PROTO.Optional(PROTO.Array(PROTO.Object({
-        type: PROTO.String,
-        name: PROTO.String
-    }))),
-    contingentRules: PROTO.Optional(PROTO.Array(PROTO.String)),
-    adminOnly: PROTO.Optional(PROTO.Boolean),
-    helpEntries: PROTO.Optional(PROTO.Array(PROTO.Object({
-        usage: PROTO.String,
-        description: rawtext
-    }))),
-    helpHidden: PROTO.Optional(PROTO.Boolean),
-    extensionName: PROTO.Optional(PROTO.String)
-});
-
 export const RegisterRule = PROTO.Object({
     identifier: PROTO.String,
     description: rawtext,
@@ -65,16 +46,4 @@ export const RuleValueResponse = PROTO.Object({
 export const RuleValueSet = PROTO.Object({
     ruleID: PROTO.String,
     value: PROTO.String
-});
-
-export const CommandCallbackRequest = PROTO.Object({
-    commandName: PROTO.String,
-    senderName: PROTO.Optional(PROTO.String),
-    args: PROTO.String
-});
-
-export const CommandPrefixRequest = PROTO.Void;
-
-export const CommandPrefixResponse = PROTO.Object({
-    prefix: PROTO.String
 });
