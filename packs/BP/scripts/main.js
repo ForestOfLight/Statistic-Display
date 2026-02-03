@@ -3,7 +3,7 @@ import { CanopyExtension } from './lib/canopy/CanopyExtension';
 export const extension = new CanopyExtension({
     name: 'StatisticDisplay',
     description: 'Statistic tracking for §l§aCanopy§r.',
-    version: '1.1.12'
+    version: '1.2.0'
 });
 
 // Commands
