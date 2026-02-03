@@ -49,40 +49,42 @@ Supported statistics:
 
 ## Usage
 
-All commands are prefixed with `./`. Do `./help` for more information.
+### Commands
 
-**Usage: `./stat list [statistic/searchterm]`**  
+**Usage: `/stat:list [statistic/searchterm]`**  
 Displays a list of all available statistics. Use the searchterm to search for specific identifiers.
 
-**Usage: `./stat <statistic>`**  
+**Usage: `/stat:stat <statistic>`**  
 Displays the specified statistic on the scoreboard.
 
-**Usage: `./stat <statistic/all> reset`**  
+**Usage: `/stat:reset <statistic/all>`**  
 Resets the counts for the specified statistic, or all statistics.
 
-**Usage: `./stat hide`**  
+**Usage: `/stat:stat hide`**  
 Hides the scoreboard.
 
-**Usage: `./stat <statistic> print [player]`**  
+**Usage: `/stat:print <statistic> [player]`**  
 Prints the top 15 players for the specified statistic, or for only the specified player.
 
-**Usage: `./stat carousel <start/stop>`**  
+**Usage: `/stat:carousel <start/stop>`**  
 Starts or stops the carousel of statistics.
 
-**Usage: `./stat carousel <add/remove> <statistic>`**  
+**Usage: `/stat:carousel <add/remove> <statistic>`**  
 Adds or removes a statistic from the carousel.
 
-**Usage: `./stat carousel list`**  
+**Usage: `/stat:carousel list`**  
 Lists all statistics in the carousel.
 
-**Usage: `./stat carousel interval [seconds]`**  
-Sets the interval for the carousel to change statistics.
+### Rules
 
-**Usage: `./stat toggle [total/offline]`**  
-Toggles whether the total or offline players should be shown.
+**Usage: `showTotal`**  
+A boolean rule that determines whether to show the total count in the statistic display.
 
-**Usage: `./transferstats`**  
-A utility command used to transfer statistics from v1.0.0 of this addon to v1.1.0. This command is only present in v1.1.0 & v1.1.1, and is removed in future versions.
+**Usage: `showOfflinePlayers`**  
+A boolean rule that determines whether to show the offline players in the statistic display.
+
+**Usage: `carouselInterval`**  
+A float rule that determines the interval (in seconds) between carousel statistic changes.
 
 ---
 
