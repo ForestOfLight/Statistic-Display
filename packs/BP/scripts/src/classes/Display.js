@@ -1,12 +1,12 @@
 import { ObjectiveSortOrder, DisplaySlotId, world, system } from '@minecraft/server';
 import eventManager from "./EventManager";
-import { DisplaySettings } from './DisplaySettings';
+import { showOfflinePlayers } from '../rules/showOfflinePlayers';
+import { showTotal } from '../rules/showTotal';
 
 const DISPLAY_SLOT = DisplaySlotId.Sidebar;
 const DISPLAY_OBJECTIVE_ID = 'statDisplay';
 
 class Display {
-    static settings = void 0;
     static currentEvent = void 0;
 
     static onReload() {
@@ -16,9 +16,8 @@ class Display {
         const activeEvent = eventManager.findEventByDisplayName(activeObjective.displayName);
         if (!activeEvent)
             throw Error(`[Stats] Could not reload. Did not find event with display name '${activeObjective.displayName}'.`);
-        this.settings = new DisplaySettings();
         this.currentEvent = activeEvent;
-        this.update(activeEvent);
+        this.update();
     }
 
     static hide() {
@@ -42,99 +41,60 @@ class Display {
         });
         world.scoreboard.setObjectiveAtDisplaySlot(DISPLAY_SLOT, { objective, sortOrder: ObjectiveSortOrder.Descending });
         this.currentEvent = event;
-        this.update(event);
+        this.update();
         return true;
     }
 
-    static update(event) {
-        if (event !== this.currentEvent)
-            return false;
+    static update() {
         const objective = world.scoreboard.getObjective(DISPLAY_OBJECTIVE_ID);
         if (!objective)
             return false;
 
-        let participants = event.getData().participants;
+        let participants = this.currentEvent.getData().participants;
         participants.push(...objective.getParticipants().map(participant => ({ name: participant.displayName.slice(0,-1) })));
         participants = participants.filter((participant) => participant && participant.name !== 'Total');
         participants.forEach(participant => {
             const player = world.getPlayers({ name: participant.name })[0];
             if (!player) {
-                if (this.settings.showOfflinePlayers) {
-                    objective.setScore(participant.name + ' ', event.getCount({ name: participant.name }));
-                } else {
+                if (showOfflinePlayers.getValue())
+                    objective.setScore(participant.name + ' ', this.currentEvent.getCount({ name: participant.name }));
+                else
                     objective.removeParticipant(participant.name + ' ');
-                }
                 return;
             }
-            objective.setScore(participant.name + ' ', event.getCount(player));
+            objective.setScore(participant.name + ' ', this.currentEvent.getCount(player));
         });
 
-        if (this.settings.showTotal)
-            objective.setScore('Total:', event.getTotal());
+        if (showTotal.getValue())
+            objective.setScore('Total:', this.currentEvent.getTotal());
         else
             objective.removeParticipant('Total:');
         
         return true;
     }
 
-    static getSetting(setting) {
-        const value = world.getDynamicProperty(setting);
-        return value;
-    }
-
-    static toggleSetting(setting) {
-        const settingMap = {
-            'offline' : 'showOfflinePlayers',
-            'total' : 'showTotal'
-        }
-        setting = settingMap[setting];
-        if (!setting)
-            return null;
-        const currentValue = this.settings.get(setting);
-        const newValue = !currentValue;
-        this.settings.commit(setting, newValue);
-        this.update(this.currentEvent);
-        return { setting, newValue };
-    }
-
-    static printTop(sender, eventID) {
+    static getTopMessage(eventID) {
         const event = eventManager.getEvent(eventID);
         const participants = event.getData().participants;
         if (participants.length === 0)
-            return sender.sendMessage('§7No statistics found for ' + event.displayName + '.');
+            return '§7No statistics found for ' + event.displayName + '.';
 
         const sortedParticipants = participants.sort((a, b) => b.score - a.score);
         const topParticipants = sortedParticipants.slice(0, Math.min(15, participants.length));
-        sender.sendMessage('§7Best Statistics for ' + event.displayName + ':');
+        let message = '§7Top Statistics for ' + event.displayName + ':';
         topParticipants.forEach((participant, index) => {
-            sender.sendMessage('§7' + (index + 1) + '. ' + participant.name + ' - §c' + participant.score);
+            message += '\n§7' + (index + 1) + '. ' + participant.name + ' - §c' + participant.score;
         });
+        return message;
     }
 
-    static printPlayer(sender, eventID, playerName) {
+    static getPlayerMessage(eventID, playerName) {
         const event = eventManager.getEvent(eventID);
         const count = event.getCount({ name: String(playerName) });
         if (count === 0)
-            return sender.sendMessage('§7No statistics found for ' + playerName + ' in ' + event.displayName + '.');
-        sender.sendMessage('§7' + event.displayName + ' for ' + playerName + ': §c' + count);
+            return '§7No statistics found for ' + playerName + ' in ' + event.displayName + '.';
+        return '§7' + event.displayName + ' for ' + playerName + ': §c' + count;
     }
 }
-
-world.afterEvents.playerJoin.subscribe((event) => {
-    if (Display.currentEvent) {
-        const runner = system.runInterval(() => {
-            if (!world.getAllPlayers().includes(world.getEntity(event.playerId))) {
-                return;
-            }
-            Display.update(Display.currentEvent);
-            system.clearRun(runner);
-        });
-    }
-});
-
-world.afterEvents.playerLeave.subscribe(() => {
-    if (Display.currentEvent)
-        Display.update(Display.currentEvent);
-});
 
 export default Display;

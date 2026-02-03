@@ -51,15 +51,9 @@ function statCommandCallback(sender, args) {
         sender.sendMessage(`§7Reset statistics for '${eventID}'.`);
     } else if (argTwo === 'print' && eventID) {
         if (argThree === null)
-            Display.printTop(sender, eventID);
+            Display.getTopMessage(sender, eventID);
         else
-            Display.printPlayer(sender, eventID, argThree);
-    } else if (argOne === 'toggle') {
-        const state = Display.toggleSetting(argTwo);
-        if (state !== null)
-            sender.sendMessage(`§7Toggled setting: ${state.setting} - ${state.newValue ? '§aenabled' : '§cdisabled'}§7.`);
-        else
-            sender.sendMessage(`§cInvalid setting: ${argTwo}.`);
+            Display.getPlayerMessage(sender, eventID, argThree);
     } else if (argOne === 'carousel') {
         carouselHandler(sender, argTwo, argThree);
     } else if (eventID) {

@@ -1,7 +1,16 @@
 import './src/config';
 
 // Commands
-import './src/commands/stat';
+import './src/commands/statstat';
+import './src/commands/statlist';
+import './src/commands/statreset';
+import './src/commands/statprint';
+import './src/commands/statcarousel';
+
+// Rules
+import './src/rules/showOfflinePlayers';
+import './src/rules/showTotal';
+import './src/rules/carouselInterval';
 
 // Events
 import './src/events/blocksMined';

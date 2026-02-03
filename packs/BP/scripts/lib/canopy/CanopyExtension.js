@@ -25,8 +25,17 @@
 import { world } from '@minecraft/server';
 import IPC from '../../lib/ipc/ipc';
 import Command from './Command';
-import Rule from './Rule';
 import { CommandCallbackRequest, CommandPrefixRequest, Ready, RegisterCommand, RegisterExtension, RegisterRule, RuleValueRequest, RuleValueSet, CommandPrefixResponse, RuleValueResponse } from './extension.ipc';
+import { VanillaCommand } from './VanillaCommand';
+import { BlockCommandOrigin } from './BlockCommandOrigin';
+import { EntityCommandOrigin } from './EntityCommandOrigin';
+import { PlayerCommandOrigin } from './PlayerCommandOrigin';
+import { ServerCommandOrigin } from './ServerCommandOrigin';
+import { FeedbackMessageType } from './FeedbackMessageType';
+import { Rule } from './Rule';
+import { BooleanRule } from './BooleanRule';
+import { IntegerRule } from './IntegerRule';
+import { FloatRule } from './FloatRule';
 
 class CanopyExtension {
     name;
@@ -53,7 +62,7 @@ class CanopyExtension {
     
     addCommand(command) {
         if (!(command instanceof Command))
-            throw new Error('Command must be an instance of Command.');
+            throw new Error(`[${this.name}] Command must be an instance of Command.`);
         this.#commands[command.getName()] = command;
         if (this.#isRegistrationReady)
             this.#registerCommand(command);
@@ -61,7 +70,7 @@ class CanopyExtension {
 
     addRule(rule) {
         if (!(rule instanceof Rule))
-            throw new Error('Rule must be an instance of Rule.');
+            throw new Error(`[${this.name}] Rule must be an instance of Rule.`);
         this.#rules[rule.getID()] = rule;
         if (this.#isRegistrationReady)
             this.#registerRule(rule);
@@ -119,30 +128,34 @@ class CanopyExtension {
                 return;
             const sender = world.getPlayers({ name: cmdData.senderName })[0];
             if (!sender)
-                throw new Error(`Sender ${cmdData.senderName} of ${cmdData.commandName} not found.`);
+                throw new Error(`[${this.name}] Sender ${cmdData.senderName} of ${cmdData.commandName} not found.`);
             const parsedArgs = JSON.parse(cmdData.args);
             this.#commands[cmdData.commandName].runCallback(sender, parsedArgs);
         });
     }
 
     #registerRule(rule) {
-        IPC.send(`canopyExtension:${this.id}:registerRule`, RegisterRule, {
+        const ruleData = {
             identifier: rule.getID(),
             description: rule.getDescription(),
-            contingentRules: rule.getContigentRules(),
-            independentRules: rule.getIndependentRules(),
+            defaultValue: String(rule.getDefaultValue()),
+            contingentRules: rule.getContigentRuleIDs(),
+            independentRules: rule.getIndependentRuleIDs(),
+            type: rule.getType(),
             extensionName: this.name
-        });
-        if (rule.getValue() === true)
-            rule.onEnable();
+        }
+        if (rule instanceof IntegerRule || rule instanceof FloatRule)
+            ruleData.valueRange = rule.getValueRange();
+        IPC.send(`canopyExtension:${this.id}:registerRule`, RegisterRule, ruleData);
+        rule.onModify(rule.getValue());
     }
 
     #handleRuleValueRequests() {
         IPC.handle(`canopyExtension:${this.id}:ruleValueRequest`, RuleValueRequest, RuleValueResponse, (data) => {
             const rule = this.#rules[data.ruleID];
             if (!rule)
-                throw new Error(`Rule ${data.ruleID} not found.`);
-            const value = rule.getValue();
+                throw new Error(`[${this.name}] Rule ${data.ruleID} not found.`);
+            const value = String(rule.getValue());
             return { value };
         });
     }
@@ -151,8 +164,8 @@ class CanopyExtension {
         IPC.on(`canopyExtension:${this.id}:ruleValueSet`, RuleValueSet, (data) => {
             const rule = this.#rules[data.ruleID];
             if (!rule)
-                throw new Error(`Rule ${data.ruleID} not found.`);
-            rule.setValue(data.value);
+                throw new Error(`[${this.name}] Rule ${data.ruleID} not found.`);
+            rule.setValue(rule.parseRuleValueString(data.value));
         });
     }
 
@@ -163,4 +176,8 @@ class CanopyExtension {
     }
 }
 
-export { CanopyExtension, Command, Rule };
+export {
+    CanopyExtension,
+    Command, VanillaCommand, BlockCommandOrigin, EntityCommandOrigin, PlayerCommandOrigin, ServerCommandOrigin, FeedbackMessageType,
+    BooleanRule, IntegerRule, FloatRule
+};

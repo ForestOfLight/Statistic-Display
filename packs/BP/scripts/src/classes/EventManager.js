@@ -28,7 +28,7 @@ class EventManager {
 
     getEvent(eventID) {
         if (!this.validateEventID(eventID))
-            throw new Error(`[Stats] Could not get event. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not get event. Event '${eventID}' not found.`);
         return this.events[eventID];
     }
 
@@ -42,31 +42,31 @@ class EventManager {
     
     increment(eventID, player) {
         if (!this.exists(eventID))
-            throw new Error(`[Stats] Could not increment. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not increment. Event '${eventID}' not found.`);
         this.getEvent(eventID).updateCount(player, 1);
     }
 
     setCount(eventID, player, count) {
         if (!this.validateEventID(eventID))
-            throw new Error(`[Stats] Could not set count. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not set count. Event '${eventID}' not found.`);
         this.getEvent(eventID).updateCount(player, count, "set");
     }
 
     addCount(eventID, player, count) {
         if (!this.validateEventID(eventID))
-            throw new Error(`[Stats] Could not add count. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not add count. Event '${eventID}' not found.`);
         this.getEvent(eventID).updateCount(player, count);
     }
 
     getCount(eventID, player) {
         if (!this.isRegistered(eventID))
-            throw new Error(`[Stats] Could not get count. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not get count. Event '${eventID}' not found.`);
         return this.getEvent(eventID).getCount(player);
     }
 
     reset(eventID) {
         if (!this.validateEventID(eventID))
-            console.warn(`[Stats] Could not reset. Event '${eventID}' not found.`);
+            console.warn(`[${extension.name}] Could not reset. Event '${eventID}' not found.`);
         this.getEvent(eventID).reset();
     }
 
@@ -110,6 +110,8 @@ class EventManager {
     }
 
     getEventIDCaseInsensitive(eventID) {
+        if (!eventID)
+            return void 0;
         const foundEventID = this.getEventIDs().find((realEventID) => realEventID.toLowerCase() === eventID.toLowerCase());
         return foundEventID !== void 0 ? foundEventID : void 0;
     }

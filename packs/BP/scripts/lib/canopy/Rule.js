@@ -23,20 +23,24 @@
  * SOFTWARE.
  */
 import { world } from '@minecraft/server';
+import { extension } from '../../src/config';
 
-class Rule {
+export class Rule {
     #identifier;
     #description;
+    #defaultValue;
     #contingentRules;
     #independentRules;
 
-    constructor({ identifier, description, contingentRules = [], independentRules = [], onEnableCallback = () => {}, onDisableCallback = () => {} }) {
+    constructor({ identifier, description, defaultValue = void 0, contingentRules = [], independentRules = [], onModifyCallback = () => {} }) {
+        if (this.constructor === Rule) 
+            throw new TypeError("Abstract class 'Rule' cannot be instantiated directly.");
         this.#identifier = identifier;
-        this.#description = description;
+        this.#description = this.#parseDescription(description);
+        this.#defaultValue = defaultValue;
         this.#contingentRules = contingentRules;
         this.#independentRules = independentRules;
-        this.onEnable = onEnableCallback;
-        this.onDisable = onDisableCallback;
+        this.onModify = onModifyCallback;
     }
 
     getID() {
@@ -47,30 +51,64 @@ class Rule {
         return this.#description;
     }
 
-    getContigentRules() {
+    getContigentRuleIDs() {
         return this.#contingentRules;
     }
 
-    getIndependentRules() {
+    getIndependentRuleIDs() {
         return this.#independentRules;
     }
 
+    getType() {
+        throw new Error(`[${extension.name}] getType() must be implemented.`);
+    }
+
+    getDefaultValue() {
+        return this.#defaultValue;
+    }
+
+    resetToDefaultValue() {
+        this.setValue(this.#defaultValue);
+    }
+
     getValue() {
-        const value = world.getDynamicProperty(this.#identifier);
-        if (String(value) === 'true')
-            return true;
-        if (['false', 'undefined'].includes(String(value)))
-            return false;
-        throw new Error(`Rule ${this.#identifier} has an invalid value: ${value} (${typeof value})`);
+        return this.parseRuleValueString(world.getDynamicProperty(this.#identifier));
+    }
+
+    setValue(value) {
+        if (!this.isInDomain(value))
+            throw new Error(`[${extension.name}] Incorrect value type for rule: ${this.getID()}`);
+        if (!this.isInRange(value))
+            throw new Error(`[${extension.name}] Value out of range for rule: ${this.getID()}`);
+        world.setDynamicProperty(this.#identifier, value);
+        this.onModify(value);
+    }
+
+    isInDomain() {
+        throw new Error(`[${extension.name}] isInDomain() must be implemented.`);
+    }
+
+    isInRange() {
+        throw new Error(`[${extension.name}] isInRange() must be implemented.`);
+    }
+
+    #parseDescription(description) {
+        if (typeof description == 'string')
+            return { text: description };
+        return description;
     }
     
-    setValue(value) {
-        if (value === true)
-            this.onEnable();
-        else
-            this.onDisable();
-        world.setDynamicProperty(this.#identifier, value);
+    parseRuleValueString(value) {
+        if (value === 'undefined' || value === void 0) {
+            this.resetToDefaultValue();
+            return this.getDefaultValue();
+        }
+        try {
+            return JSON.parse(value);
+        } catch {
+            if (value === 'NaN')
+                return NaN;
+            throw new Error(`[${extension.name}] Failed to parse value for DynamicProperty: ${value}.`);
+        }
     }
 }
-
-export default Rule;
