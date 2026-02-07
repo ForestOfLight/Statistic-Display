@@ -30,8 +30,10 @@ class Carousel {
     static setInterval(seconds) {
         this.interval = seconds * 20;
         this.saveData();
-        this.stop();
-        this.start();
+        if (this.isActive) {
+            this.stop();
+            this.start();
+        }
     }
 
     static next() {
