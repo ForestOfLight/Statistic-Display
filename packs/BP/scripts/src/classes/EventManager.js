@@ -1,13 +1,13 @@
 import { world } from '@minecraft/server';
-import { Event, EVENT_ID_PREFIX } from 'src/classes/Event';
-import BulkDP from 'src/classes/BulkDP';
+import { Event, EVENT_ID_PREFIX } from './Event';
+import { BulkDP } from './BulkDP';
 
 class EventManager {
     events = {};
-    EVENT_LIST_ID = 'statEventList';
     SUBEVENT_DELIMITER = ':';
     worldLoaded = false;
     eventsToRegister = [];
+    eventIDList = new BulkDP('statEventList');
 
     registerEvent(eventID, displayName, setupCallback) {
         if (this.worldLoaded) {
@@ -15,7 +15,7 @@ class EventManager {
             const eventList = this.getEventIDs();
             if (!eventList.includes(eventID)) {
                 eventList.push(eventID);
-                BulkDP.save(this.EVENT_LIST_ID, eventList);
+                this.eventIDList.set(eventList);
             }
         } else {
             this.eventsToRegister.push({ eventID, displayName, setupCallback });
@@ -23,12 +23,12 @@ class EventManager {
     }
     
     getEventIDs() {
-        return BulkDP.load(this.EVENT_LIST_ID);
+        return this.eventIDList.get();
     }
 
     getEvent(eventID) {
         if (!this.validateEventID(eventID))
-            throw new Error(`[Stats] Could not get event. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not get event. Event '${eventID}' not found.`);
         return this.events[eventID];
     }
 
@@ -37,36 +37,36 @@ class EventManager {
     }
 
     isRegistered(eventID) {
-        return this.events[eventID] !== undefined;
+        return this.events[eventID] !== void 0;
     }
     
     increment(eventID, player) {
         if (!this.exists(eventID))
-            throw new Error(`[Stats] Could not increment. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not increment. Event '${eventID}' not found.`);
         this.getEvent(eventID).updateCount(player, 1);
     }
 
     setCount(eventID, player, count) {
         if (!this.validateEventID(eventID))
-            throw new Error(`[Stats] Could not set count. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not set count. Event '${eventID}' not found.`);
         this.getEvent(eventID).updateCount(player, count, "set");
     }
 
     addCount(eventID, player, count) {
         if (!this.validateEventID(eventID))
-            throw new Error(`[Stats] Could not add count. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not add count. Event '${eventID}' not found.`);
         this.getEvent(eventID).updateCount(player, count);
     }
 
     getCount(eventID, player) {
         if (!this.isRegistered(eventID))
-            throw new Error(`[Stats] Could not get count. Event '${eventID}' not found.`);
+            throw new Error(`[${extension.name}] Could not get count. Event '${eventID}' not found.`);
         return this.getEvent(eventID).getCount(player);
     }
 
     reset(eventID) {
         if (!this.validateEventID(eventID))
-            console.warn(`[Stats] Could not reset. Event '${eventID}' not found.`);
+            console.warn(`[${extension.name}] Could not reset. Event '${eventID}' not found.`);
         this.getEvent(eventID).reset();
     }
 
@@ -100,13 +100,20 @@ class EventManager {
                 console.warn(error);
             }
         }
-        return undefined;
+        return void 0;
     }
 
     registerQueuedEvents() {
         for (const event of this.eventsToRegister)
             this.registerEvent(event.eventID, event.displayName, event.setupCallback);
         this.eventsToRegister = [];
+    }
+
+    getEventIDCaseInsensitive(eventID) {
+        if (!eventID)
+            return void 0;
+        const foundEventID = this.getEventIDs().find((realEventID) => realEventID.toLowerCase() === eventID.toLowerCase());
+        return foundEventID !== void 0 ? foundEventID : void 0;
     }
 }
 

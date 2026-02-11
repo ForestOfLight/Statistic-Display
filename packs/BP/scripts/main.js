@@ -1,7 +1,26 @@
-import './src/config';
+import { CanopyExtension } from './lib/canopy/CanopyExtension';
+
+export const extension = new CanopyExtension({
+    name: 'StatisticDisplay',
+    description: 'Statistic tracking for §l§aCanopy§r.',
+    version: '1.2.0'
+});
 
 // Commands
 import './src/commands/stat';
+import './src/commands/statlist';
+import './src/commands/statreset';
+import './src/commands/statprint';
+import './src/commands/statcarousel';
+
+// Rules
+import { showOfflinePlayers } from './src/rules/showOfflinePlayers';
+import { showTotal } from './src/rules/showTotal';
+import { carouselInterval } from './src/rules/carouselInterval';
+
+extension.addRule(showOfflinePlayers);
+extension.addRule(showTotal);
+extension.addRule(carouselInterval);
 
 // Events
 import './src/events/blocksMined';
@@ -25,6 +44,8 @@ import './src/events/timeSinceDeath';
 import './src/events/longestSession';
 import './src/events/other';
 import './src/events/totemsPopped';
+import './src/events/itemsPickedUp';
+import './src/events/itemsDropped';
 
 // Setup
 import Display from './src/classes/Display';

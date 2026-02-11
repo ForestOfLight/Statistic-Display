@@ -30,8 +30,10 @@ class Carousel {
     static setInterval(seconds) {
         this.interval = seconds * 20;
         this.saveData();
-        this.stop();
-        this.start();
+        if (this.isActive) {
+            this.stop();
+            this.start();
+        }
     }
 
     static next() {
@@ -48,10 +50,12 @@ class Carousel {
         this.isActive = true;
         if (this.runner)
             system.clearRun(this.runner);
-        this.next();
-        this.runner = system.runInterval(() => {
-            Display.set(this.next());
-        }, this.interval);
+        if (this.entries.length > 0) {
+            this.next();
+            this.runner = system.runInterval(() => {
+                Display.set(this.next());
+            }, this.interval);
+        }
         this.saveData();
     }
 

@@ -5,7 +5,7 @@
 
 [![GitHub Downloads](https://img.shields.io/github/downloads/ForestOfLight/Statistic-Display/total?label=Github%20downloads&logo=github)](https://github.com/ForestOfLight/Statistic-Display/releases/latest)
 [![Curseforge Downloads](https://cf.way2muchnoise.eu/full_1127625_downloads.svg)](https://www.curseforge.com/minecraft-bedrock/scripts/statistic-display)
-[![Minecraft - Version](https://img.shields.io/badge/Minecraft-v1.21.130_(Bedrock)-brightgreen)](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs)
+[![Minecraft - Version](https://img.shields.io/badge/Minecraft-v26.0_(Bedrock)-brightgreen)](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c7b2ef373dee40b8a5d2903d3001231f)](https://app.codacy.com/gh/ForestOfLight/Statistic-Display/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Discord](https://badgen.net/discord/members/9KGche8fxm?icon=discord&label=Discord&list=what)](https://discord.gg/9KGche8fxm)
 </div>
@@ -26,6 +26,8 @@ Supported statistics:
 - **Killed By Entity** (including each type of entity)
 - **Damage Dealt**
 - **Damage Taken** (including each type of damage)
+- **Items Picked Up** (including each type of item)
+- **Items Dropped** (including each type of item)
 - **Dimension Changes** (including each type of dimension)
 - **Player Joins**
 - **Highest Xp Level**
@@ -47,40 +49,42 @@ Supported statistics:
 
 ## Usage
 
-All commands are prefixed with `./`. Do `./help` for more information.
+### Commands
 
-**Usage: `./stat list [statistic/searchterm]`**  
+**Usage: `/stat:list [statistic/searchterm]`**  
 Displays a list of all available statistics. Use the searchterm to search for specific identifiers.
 
-**Usage: `./stat <statistic>`**  
+**Usage: `/stat:stat <statistic>`**  
 Displays the specified statistic on the scoreboard.
 
-**Usage: `./stat <statistic/all> reset`**  
+**Usage: `/stat:reset <statistic/all>`**  
 Resets the counts for the specified statistic, or all statistics.
 
-**Usage: `./stat hide`**  
+**Usage: `/stat:stat hide`**  
 Hides the scoreboard.
 
-**Usage: `./stat <statistic> print [player]`**  
+**Usage: `/stat:print <statistic> [player]`**  
 Prints the top 15 players for the specified statistic, or for only the specified player.
 
-**Usage: `./stat carousel <start/stop>`**  
+**Usage: `/stat:carousel <start/stop>`**  
 Starts or stops the carousel of statistics.
 
-**Usage: `./stat carousel <add/remove> <statistic>`**  
+**Usage: `/stat:carousel <add/remove> <statistic>`**  
 Adds or removes a statistic from the carousel.
 
-**Usage: `./stat carousel list`**  
+**Usage: `/stat:carousel list`**  
 Lists all statistics in the carousel.
 
-**Usage: `./stat carousel interval [seconds]`**  
-Sets the interval for the carousel to change statistics.
+### Rules
 
-**Usage: `./stat toggle [total/offline]`**  
-Toggles whether the total or offline players should be shown.
+**Usage: `showTotal`**  
+A boolean rule that determines whether to show the total count in the statistic display.
 
-**Usage: `./transferstats`**  
-A utility command used to transfer statistics from v1.0.0 of this addon to v1.1.0. This command is only present in v1.1.0 & v1.1.1, and is removed in future versions.
+**Usage: `showOfflinePlayers`**  
+A boolean rule that determines whether to show the offline players in the statistic display.
+
+**Usage: `carouselInterval`**  
+A float rule that determines the interval (in seconds) between carousel statistic changes.
 
 ---
 
