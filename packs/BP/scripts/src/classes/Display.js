@@ -1,4 +1,4 @@
-import { ObjectiveSortOrder, DisplaySlotId, world, system } from '@minecraft/server';
+import { ObjectiveSortOrder, DisplaySlotId, world } from '@minecraft/server';
 import eventManager from "./EventManager";
 import { showOfflinePlayers } from '../rules/showOfflinePlayers';
 import { showTotal } from '../rules/showTotal';
