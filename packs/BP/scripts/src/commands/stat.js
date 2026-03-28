@@ -8,7 +8,7 @@ export class StatCommand extends Command {
     constructor() {
         super({
             name: 'stat:stat',
-            description: "Display a statistic on the scoreboard. Use 'hide' to hide the scoreboard. (Statisic format: eventName:sub_type)",
+            description: "Display a statistic on the scoreboard. Use 'hide' to hide the scoreboard. (Statistic format: eventName:sub_type)",
             optionalParameters: [{ name: 'statistic', type: CustomCommandParamType.String }],
             permissionLevel: CommandPermissionLevel.Any,
             allowedSources: [PlayerCommandOrigin, BlockCommandOrigin, EntityCommandOrigin, ServerCommandOrigin],
