@@ -69,6 +69,10 @@ class CanopyExtension {
         return this.#rules[ruleID].getValue();
     }
 
+    isRegistered() {
+        return this.#isRegistrationReady;
+    }
+
     #makeID(name) {
         if (typeof name !== 'string')
             throw new Error(`[${name}] Could not register extension. Extension name must be a string.`);
