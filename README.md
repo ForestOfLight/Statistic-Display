@@ -17,6 +17,7 @@ Supported statistics:
 - **Time Since Last Death**
 - **Blocks Mined** (including each type of block)
 - **Blocks Placed** (including each type of block)
+- **Blocks Mined With** (including each type of item)
 - **Tools Broken** (including each type of tool)
 - **Items Used** (including each type of item)
 - **Interacted with Block or Entity** (including each type of block and entity)

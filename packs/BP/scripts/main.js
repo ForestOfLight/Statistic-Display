@@ -25,27 +25,28 @@ extension.addRule(carouselInterval);
 // Events
 import './src/events/blocksMined';
 import './src/events/blocksPlaced';
-import './src/events/deaths';
+import './src/events/blocksMinedWith';
 import './src/events/itemUsed';
+import './src/events/interactedWith';
+import './src/events/toolsBroken';
 import './src/events/playTime';
+import './src/events/deaths';
+import './src/events/timeSinceDeath';
+import './src/events/longestSession';
 import './src/events/killed';
 import './src/events/killedBy';
-import './src/events/interactedWith';
 import './src/events/highestXpLevel';
-import './src/events/toolsBroken';
 import './src/events/changedDimension';
 import './src/events/effectsGained';
 import './src/events/damageTaken';
 import './src/events/damageDealt';
+import './src/events/joins';
 import './src/events/chats';
 import './src/events/emotes';
-import './src/events/joins';
-import './src/events/timeSinceDeath';
-import './src/events/longestSession';
-import './src/events/other';
 import './src/events/totemsPopped';
 import './src/events/itemsPickedUp';
 import './src/events/itemsDropped';
+import './src/events/other';
 
 // Setup
 import Display from './src/classes/Display';
