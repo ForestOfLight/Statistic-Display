@@ -7,6 +7,7 @@
 [![Curseforge Downloads](https://cf.way2muchnoise.eu/full_1127625_downloads.svg)](https://www.curseforge.com/minecraft-bedrock/scripts/statistic-display)
 [![Minecraft - Version](https://img.shields.io/badge/Minecraft-v26.20_(Bedrock)-brightgreen)](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs)
 [![Discord](https://badgen.net/discord/members/9KGche8fxm?icon=discord&label=Discord&list=what)](https://discord.gg/9KGche8fxm)
+[![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-yellow.svg)](https://buymeacoffee.com/forestoflight)
 </div>
 
 This is an addon for Minecraft Bedrock Edition that easily displays statistics on the scoreboard. It is designed with multiplayer servers in mind, but also works nicely for singleplayer worlds! All statistics are tracked even when not on display and can be displayed with a single command, and all with only one scoreboard objective.
@@ -91,3 +92,4 @@ A float rule that determines the interval (in seconds) between carousel statisti
 ### Special Thanks to CommandLeo
 
 For their Java Edition version of the [Statistic Display](https://github.com/CommandLeo/scarpet/wiki/Statistic-Display) (as an scarpet app), which inspired me to create this **Canopy** extension addon.
+
