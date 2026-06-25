@@ -3,7 +3,7 @@ import { CanopyExtension } from './lib/canopy/CanopyExtension';
 export const extension = new CanopyExtension({
     name: 'StatisticDisplay',
     description: 'Statistic tracking for §l§aCanopy§r.',
-    version: '1.2.2'
+    version: '1.3.0'
 });
 
 // Commands
@@ -41,7 +41,6 @@ import './src/events/effectsGained';
 import './src/events/damageTaken';
 import './src/events/damageDealt';
 import './src/events/joins';
-import './src/events/chats';
 import './src/events/emotes';
 import './src/events/totemsPopped';
 import './src/events/itemsPickedUp';
