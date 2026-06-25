@@ -92,3 +92,6 @@ A float rule that determines the interval (in seconds) between carousel statisti
 
 For their Java Edition version of the [Statistic Display](https://github.com/CommandLeo/scarpet/wiki/Statistic-Display) (as an scarpet app), which inspired me to create this **Canopy** extension addon.
 
+## Donate
+
+If you appreciate my work here and would like to support the future development of my addons, please consider donating to me on [BuyMeACoffee](https://buymeacoffee.com/forestoflight). Your support is greatly appreciated!
