@@ -41,7 +41,6 @@ import './src/events/effectsGained';
 import './src/events/damageTaken';
 import './src/events/damageDealt';
 import './src/events/joins';
-import './src/events/chats';
 import './src/events/emotes';
 import './src/events/totemsPopped';
 import './src/events/itemsPickedUp';

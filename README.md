@@ -33,7 +33,6 @@ Supported statistics:
 - **Player Joins**
 - **Highest Xp Level**
 - **Longest Session**
-- **Chats Sent**
 - **Emotes Performed**
 - **Totems Popped**
 - **Other**
